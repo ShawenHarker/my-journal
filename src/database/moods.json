@@ -1,0 +1,32 @@
+[
+  {
+    "id": "mood_001",
+    "name": "Great",
+    "bg_color": "#FAEEDA",
+    "text_color": "#633806"
+  },
+  {
+    "id": "mood_002",
+    "name": "Good",
+    "bg_color": "#E1F5EE",
+    "text_color": "#085041"
+  },
+  {
+    "id": "mood_003",
+    "name": "Okay",
+    "bg_color": "#EEEDFE",
+    "text_color": "#7F77DD"
+  },
+  {
+    "id": "mood_004",
+    "name": " Low",
+    "bg_color": "#E6F1FB",
+    "text_color": "#EF9F27"
+  },
+  {
+    "id": "mood_005",
+    "name": "Frustrated",
+    "bg_color": "#FCEBEB",
+    "text_color": "#E24B4A"
+  }
+]

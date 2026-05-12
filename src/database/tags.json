@@ -1,0 +1,50 @@
+[
+  {
+    "id": "tag_001",
+    "name": "work",
+    "bg_color": "#EEEDFE",
+    "text_color": "#3C3489"
+  },
+  {
+    "id": "tag_002",
+    "name": "family",
+    "bg_color": "#E1F5EE",
+    "text_color": "#085041"
+  },
+  {
+    "id": "tag_003",
+    "name": "health",
+    "bg_color": "#FAEEDA",
+    "text_color": "#633806"
+  },
+  {
+    "id": "tag_004",
+    "name": "relationships",
+    "bg_color": "#FAECE7",
+    "text_color": "#712B13"
+  },
+  {
+    "id": "tag_005",
+    "name": "personal growth",
+    "bg_color": "#FBEAF0",
+    "text_color": "#72243E"
+  },
+  {
+    "id": "tag_006",
+    "name": "goals",
+    "bg_color": "#EAF3DE",
+    "text_color": "#27500A"
+  },
+  {
+    "id": "tag_007",
+    "name": "creativity",
+    "bg_color": "#E6F1FB",
+    "text_color": "#0C447C"
+  },
+  {
+    "id": "tag_008",
+    "name": "general",
+    "bg_color": "#F1EFE8",
+    "text_color": "#444441"
+  }
+]
