@@ -3,7 +3,7 @@ import { NewEntry } from '../pages/newEntry';
 import { MyJournal } from '../pages/myJournal';
 
 route('/', () => {
-    navigate('/new-entry', {replace: true});
+    setTimeout(() => navigate('/new-entry', { replace: true }), 0);
     return html``;
 });
 

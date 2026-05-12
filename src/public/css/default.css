@@ -10,5 +10,16 @@ body {
   line-height: 1.6;
   margin: 0 auto;
   padding: 2rem;
+  background-color: #EEEDFE;
+  color: #534AB7;
 }
 
+a, a:hover, a:visited, a:focus {
+  text-decoration: none !important;
+}
+
+.nav-link {
+  font-weight: bold;
+  color: #534AB7;
+  padding-left: 0;
+}

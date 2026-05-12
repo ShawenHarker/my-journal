@@ -9,4 +9,6 @@ if (import.meta.env.MODE === 'development') import('tina4js/debug');
 // api.configure({ baseUrl: '/api', auth: true });
 
 // Start router
-router.start({ target: '#root', mode: 'hash' });
+document.addEventListener('DOMContentLoaded', () => {
+    router.start({ target: '#root', mode: 'history' });
+});

@@ -12,6 +12,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "bootstrap-icons": "^1.13.1",
     "tina4js": "^1.0.7"
   },
   "devDependencies": {
