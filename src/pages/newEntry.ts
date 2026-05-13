@@ -9,8 +9,11 @@ export const NewEntry = () => {
 
   return html`
     ${NewEntryHeader({user: {name, current_streak, seven_day_streak}})}
-    <div>
+    <div class="mt-2">
       ${Mood()}
+    </div>
+    <div class="mt-2">
+      
     </div>
   `;
 }

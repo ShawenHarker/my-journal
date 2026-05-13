@@ -3,7 +3,6 @@ import Moods from '../database/moods.json';
 
 export const Mood = () => {
     return html`
-    <div class="mt-2">
         ${Moods.map(mood => {
             const style = `
                 color: ${mood.text_color};
@@ -35,6 +34,5 @@ export const Mood = () => {
                 </button>
             `;
         })}
-    </div>
     `
 }
