@@ -1,5 +1,6 @@
 import { html } from 'tina4js';
 import { NewEntryHeader } from '../components/new-entry-header';
+import { Mood } from '../components/moods';
 import Users from '../database/users.json';
 
 export const NewEntry = () => {
@@ -8,5 +9,8 @@ export const NewEntry = () => {
 
   return html`
     ${NewEntryHeader({user: {name, current_streak, seven_day_streak}})}
+    <div>
+      ${Mood()}
+    </div>
   `;
 }
