@@ -7,13 +7,13 @@ export const HorizontalTabs = (activePath: string) => {
     ];
 
     const tabClass = (href: string) =>
-        `nav-item ${activePath === href ? 'nav-item-selected' : ''} d-flex align-items-center rounded-top-2 px-2 me-2`.trim();
+        `nav-item ${activePath === href ? 'primary-bg' : ''} d-flex align-items-center rounded-top-2 px-2 me-2`.trim();
 
     return html`
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs text-primary-brand">
             ${tabs.map(tab => html`
                 <li class="${tabClass(tab.href)}">
-                    <i class="${tab.icon}"></i>
+                    <i class="${tab.icon}" style="margin-top: 4px;"></i>
                     <a class="nav-link px-2 text-primary-brand" href="${tab.href}">${tab.text}</a>
                 </li>
             `)}

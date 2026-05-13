@@ -11,7 +11,7 @@
   /* Brand */
   --primary-color:       #534AB7;
   --primary-light:       #7F77DD;
-  --primary-lighter:     #AFA9EC;
+  --primary-lighter:     #b9b4ec;
   --primary-bg:          #EEEDFE;
   --primary-dark:        #3C3489;
   --primary-darker:      #26215C;
@@ -79,7 +79,7 @@
 
   /* Borders */
   --border-color:        #E8E8E5;
-  --border-color-strong: #AFA9EC;
+  --border-color-strong: #b9b4ec;
 
   /* Text */
   --text-primary:        #2C2C2A;
@@ -389,7 +389,7 @@ body {
   font-size:        16px;
   line-height:      1.6;
   padding:          0.5rem 1rem;
-  color:            var(--primary-color);
+  color:            var(--text-primary);
   background-color: var(--surface-page);
   -webkit-font-smoothing: antialiased;
 }
@@ -422,6 +422,26 @@ a:hover {
   outline: none !important;
 }
 
-.nav-item-selected {
+.header-text {
+  color: var(--primary-color);
+}
+
+.primary-bg {
   background-color: var(--primary-lighter);
+}
+
+.secondary-bg {
+  background-color: var(--teal-dark);
+}
+
+.dark-bg {
+  background-color: var(--primary-dark);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.flame {
+  color: var(--color-danger);
 }

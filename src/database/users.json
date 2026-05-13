@@ -4,8 +4,7 @@
     "name": "Sarah Nkosi",
     "email": "sarah@example.com",
     "current_streak": 5,
-    "highest_streak": 10,
-    "last_entry": "2026-05-11",
+    "seven_day_streak": 5,
     "created_at": "2025-05-11"
   },
   {
@@ -13,8 +12,7 @@
     "name": "Shawen Harker",
     "email": "shawen@example.com",
     "current_streak": 2,
-    "highest_streak": 4,
-    "last_entry": "2026-03-23",
+    "seven_day_streak": 2,
     "created_at": "2025-09-11"
   },
   {
@@ -22,8 +20,7 @@
     "name": "Sharne Milton",
     "email": "sharne@example.com",
     "current_streak": 11,
-    "highest_streak": 11,
-    "last_entry": "2026-05-11",
+    "seven_day_streak": 4,
     "created_at": "2026-05-01"
   }
 ]
