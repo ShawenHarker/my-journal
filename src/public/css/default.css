@@ -1,4 +1,383 @@
-/* Tina4 default styles */
+/* ============================================================
+   Journal App — default.css
+   Palette: Purple-led, with Teal, Amber, Coral, and neutrals
+   Bootstrap 5 variable overrides + custom utilities
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. Design tokens
+   ------------------------------------------------------------ */
+:root {
+  /* Brand */
+  --primary-color:       #534AB7;
+  --primary-light:       #7F77DD;
+  --primary-lighter:     #AFA9EC;
+  --primary-bg:          #EEEDFE;
+  --primary-dark:        #3C3489;
+  --primary-darker:      #26215C;
+
+  /* Teal — positive / family */
+  --teal-bg:             #E1F5EE;
+  --teal-border:         #5DCAA5;
+  --teal-mid:            #1D9E75;
+  --teal-dark:           #085041;
+
+  /* Amber — neutral / health */
+  --amber-bg:            #FAEEDA;
+  --amber-mid:           #EF9F27;
+  --amber-border:        #BA7517;
+  --amber-dark:          #633806;
+
+  /* Coral — frustrated / relationships */
+  --coral-bg:            #FAECE7;
+  --coral-mid:           #F0997B;
+  --coral-dot:           #D85A30;
+  --coral-dark:          #712B13;
+
+  /* Pink — personal growth */
+  --pink-bg:             #FBEAF0;
+  --pink-dark:           #72243E;
+
+  /* Green — goals */
+  --green-bg:            #EAF3DE;
+  --green-dark:          #27500A;
+
+  /* Blue — creativity */
+  --blue-bg:             #E6F1FB;
+  --blue-dark:           #0C447C;
+
+  /* Gray — general / neutral */
+  --gray-bg:             #F1EFE8;
+  --gray-mid:            #888780;
+  --gray-dark:           #444441;
+  --gray-darker:         #2C2C2A;
+
+  /* Mood dot colors */
+  --mood-great-dot:      #EF9F27;
+  --mood-good-dot:       #1D9E75;
+  --mood-okay-dot:       #7F77DD;
+  --mood-low-dot:        #378ADD;
+  --mood-frustrated-dot: #D85A30;
+
+  /* Mood badge — text */
+  --mood-great-text:     #633806;
+  --mood-good-text:      #085041;
+  --mood-okay-text:      #3C3489;
+  --mood-low-text:       #0C447C;
+  --mood-frustrated-text:#A32D2D;
+
+  /* Semantic */
+  --color-success:       #1D9E75;
+  --color-warning:       #EF9F27;
+  --color-danger:        #E24B4A;
+  --color-info:          #378ADD;
+
+  /* Surfaces */
+  --surface-page:        #F5F4FF;
+  --surface-card:        #FFFFFF;
+  --surface-secondary:   #F5F5F3;
+
+  /* Borders */
+  --border-color:        #E8E8E5;
+  --border-color-strong: #AFA9EC;
+
+  /* Text */
+  --text-primary:        #2C2C2A;
+  --text-secondary:      #888780;
+  --text-muted:          #B4B2A9;
+
+  /* Typography */
+  --font-body:           system-ui, -apple-system, sans-serif;
+  --font-mono:           ui-monospace, 'Cascadia Code', monospace;
+
+  /* Radii */
+  --radius-sm:           4px;
+  --radius-md:           8px;
+  --radius-lg:           12px;
+  --radius-xl:           16px;
+  --radius-pill:         999px;
+
+  /* Shadows */
+  --shadow-card:         0 1px 3px rgba(83, 74, 183, 0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-elevated:     0 4px 12px rgba(83, 74, 183, 0.12), 0 2px 4px rgba(0,0,0,0.06);
+
+  /* Bootstrap 5 overrides — mapped to our tokens */
+  --bs-primary:          #534AB7;
+  --bs-primary-rgb:      83, 74, 183;
+  --bs-secondary:        #888780;
+  --bs-secondary-rgb:    136, 135, 128;
+  --bs-success:          #1D9E75;
+  --bs-success-rgb:      29, 158, 117;
+  --bs-warning:          #EF9F27;
+  --bs-warning-rgb:      239, 159, 39;
+  --bs-danger:           #E24B4A;
+  --bs-danger-rgb:       226, 75, 74;
+  --bs-info:             #378ADD;
+  --bs-info-rgb:         55, 138, 221;
+  --bs-light:            #F5F4FF;
+  --bs-dark:             #2C2C2A;
+  --bs-body-color:       #2C2C2A;
+  --bs-body-bg:          #F5F4FF;
+  --bs-border-color:     #E8E8E5;
+  --bs-border-radius:    8px;
+  --bs-border-radius-sm: 4px;
+  --bs-border-radius-lg: 12px;
+  --bs-border-radius-xl: 16px;
+  --bs-border-radius-pill: 999px;
+  --bs-link-color:       #534AB7;
+  --bs-link-hover-color: #3C3489;
+  --bs-font-sans-serif:  system-ui, -apple-system, sans-serif;
+  --bs-box-shadow:       0 1px 3px rgba(83,74,183,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --bs-box-shadow-sm:    0 1px 2px rgba(83,74,183,0.06);
+  --bs-box-shadow-lg:    0 4px 12px rgba(83,74,183,0.12), 0 2px 4px rgba(0,0,0,0.06);
+}
+
+/* ------------------------------------------------------------
+   2. Bootstrap component overrides
+   ------------------------------------------------------------ */
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color:     var(--primary-color);
+  color:            #fff;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: var(--primary-dark);
+  border-color:     var(--primary-dark);
+  color:            #fff;
+}
+.btn-primary:focus-visible {
+  box-shadow: 0 0 0 3px rgba(83, 74, 183, 0.35);
+}
+
+.btn-outline-primary {
+  color:        var(--primary-color);
+  border-color: var(--primary-color);
+}
+.btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  border-color:     var(--primary-color);
+  color:            #fff;
+}
+
+.btn-secondary {
+  background-color: var(--surface-secondary);
+  border-color:     var(--border-color);
+  color:            var(--text-primary);
+}
+.btn-secondary:hover {
+  background-color: var(--primary-bg);
+  border-color:     var(--primary-lighter);
+  color:            var(--primary-dark);
+}
+
+/* Cards */
+.card {
+  background:    var(--surface-card);
+  border:        1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow:    var(--shadow-card);
+}
+.card-header {
+  background:    var(--surface-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Form controls */
+.form-control,
+.form-select {
+  border:           1px solid var(--border-color);
+  border-radius:    var(--radius-md);
+  background-color: var(--surface-card);
+  color:            var(--text-primary);
+  transition:       border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-lighter);
+  box-shadow:   0 0 0 3px rgba(83, 74, 183, 0.18);
+  outline:      none;
+}
+.form-control::placeholder {
+  color: var(--text-muted);
+}
+
+/* Navbar */
+.navbar {
+  border-bottom: 1px solid var(--border-color);
+  background:    var(--surface-card) !important;
+}
+.navbar-brand {
+  color:       var(--primary-color) !important;
+  font-weight: 500;
+}
+
+/* Nav tabs */
+.nav-link {
+  color:       var(--primary-color);
+  font-weight: 500;
+  padding-left: 0;
+  transition:  color 0.15s ease;
+}
+.nav-link:hover {
+  color: var(--primary-dark);
+}
+.nav-tabs .nav-item .nav-link {
+  border:        none !important;
+  outline:       none !important;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  color:         var(--text-secondary);
+}
+.nav-tabs .nav-item .nav-link.active {
+  color:            var(--primary-color);
+  font-weight:      500;
+  background:       var(--surface-card);
+  border-bottom:    2px solid var(--primary-color) !important;
+}
+
+/* Alerts */
+.alert-primary   { background: var(--primary-bg);  color: var(--primary-dark);  border-color: var(--primary-lighter); }
+.alert-success   { background: var(--teal-bg);     color: var(--teal-dark);     border-color: var(--teal-border);    }
+.alert-warning   { background: var(--amber-bg);    color: var(--amber-dark);    border-color: var(--amber-border);   }
+.alert-danger    { background: #FCEBEB;             color: #A32D2D;              border-color: #F09595;               }
+.alert-info      { background: var(--blue-bg);     color: var(--blue-dark);     border-color: #85B7EB;               }
+
+/* Badges */
+.badge.bg-primary   { background-color: var(--primary-color)  !important; }
+.badge.bg-success   { background-color: var(--color-success)  !important; }
+.badge.bg-warning   { background-color: var(--color-warning)  !important; color: var(--amber-dark) !important; }
+.badge.bg-danger    { background-color: var(--color-danger)   !important; }
+.badge.bg-info      { background-color: var(--color-info)     !important; }
+.badge.bg-secondary { background-color: var(--gray-mid)       !important; }
+
+/* ------------------------------------------------------------
+   3. Tag pills
+   ------------------------------------------------------------ */
+.tag {
+  display:       inline-block;
+  font-size:     11px;
+  font-weight:   500;
+  padding:       3px 10px;
+  border-radius: var(--radius-pill);
+  line-height:   1.4;
+}
+
+.tag-work         { background: var(--primary-bg);  color: var(--primary-dark); }
+.tag-family       { background: var(--teal-bg);     color: var(--teal-dark);    }
+.tag-health       { background: var(--amber-bg);    color: var(--amber-dark);   }
+.tag-relationships{ background: var(--coral-bg);    color: var(--coral-dark);   }
+.tag-growth       { background: var(--pink-bg);     color: var(--pink-dark);    }
+.tag-goals        { background: var(--green-bg);    color: var(--green-dark);   }
+.tag-creativity   { background: var(--blue-bg);     color: var(--blue-dark);    }
+.tag-general      { background: var(--gray-bg);     color: var(--gray-dark);    }
+
+/* ------------------------------------------------------------
+   4. Mood badges
+   ------------------------------------------------------------ */
+.mood {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           6px;
+  font-size:     13px;
+  padding:       6px 14px;
+  border-radius: var(--radius-pill);
+  border:        1px solid transparent;
+  cursor:        pointer;
+  transition:    background 0.15s ease, border-color 0.15s ease;
+}
+.mood::before {
+  content:       '';
+  width:         8px;
+  height:        8px;
+  border-radius: 50%;
+  flex-shrink:   0;
+}
+
+.mood-great       { background: var(--amber-bg);  color: var(--mood-great-text);       border-color: var(--amber-border);    }
+.mood-great::before  { background: var(--mood-great-dot); }
+
+.mood-good        { background: var(--teal-bg);   color: var(--mood-good-text);        border-color: var(--teal-border);     }
+.mood-good::before   { background: var(--mood-good-dot); }
+
+.mood-okay        { background: var(--primary-bg); color: var(--mood-okay-text);       border-color: var(--primary-lighter); }
+.mood-okay::before   { background: var(--mood-okay-dot); }
+
+.mood-low         { background: var(--blue-bg);   color: var(--mood-low-text);         border-color: #85B7EB;                }
+.mood-low::before    { background: var(--mood-low-dot); }
+
+.mood-frustrated  { background: #FCEBEB;           color: var(--mood-frustrated-text); border-color: #F09595;                }
+.mood-frustrated::before { background: var(--mood-frustrated-dot); }
+
+/* Mood dot — standalone (used in entry list) */
+.mood-dot {
+  width:         10px;
+  height:        10px;
+  border-radius: 50%;
+  flex-shrink:   0;
+  display:       inline-block;
+}
+.mood-dot-great       { background: var(--mood-great-dot);       }
+.mood-dot-good        { background: var(--mood-good-dot);        }
+.mood-dot-okay        { background: var(--mood-okay-dot);        }
+.mood-dot-low         { background: var(--mood-low-dot);         }
+.mood-dot-frustrated  { background: var(--mood-frustrated-dot);  }
+
+/* ------------------------------------------------------------
+   5. Utility classes
+   ------------------------------------------------------------ */
+.text-primary-brand  { color: var(--primary-color) !important; }
+.text-muted-soft     { color: var(--text-secondary); }
+.text-hint           { color: var(--text-muted); font-size: 12px; }
+
+.bg-page             { background-color: var(--surface-page); }
+.bg-card             { background-color: var(--surface-card); }
+.bg-secondary-soft   { background-color: var(--surface-secondary); }
+.bg-brand-light      { background-color: var(--primary-bg); }
+
+.border-brand        { border-color: var(--primary-lighter) !important; }
+.rounded-app         { border-radius: var(--radius-lg); }
+
+.shadow-card         { box-shadow: var(--shadow-card); }
+.shadow-elevated     { box-shadow: var(--shadow-elevated); }
+
+/* Streak dot grid */
+.streak-grid         { display: flex; gap: 5px; }
+.streak-cell {
+  width:         18px;
+  height:        18px;
+  border-radius: var(--radius-sm);
+  background:    var(--surface-secondary);
+}
+.streak-cell.filled  { background: var(--primary-light); }
+.streak-cell.today   { background: var(--teal-mid);      }
+
+/* Prompt card */
+.prompt-card {
+  background:    var(--primary-bg);
+  border:        1px solid var(--primary-lighter);
+  border-radius: var(--radius-lg);
+  padding:       1.25rem;
+}
+.prompt-card .prompt-label {
+  font-size:      11px;
+  font-weight:    500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color:          var(--primary-color);
+  margin-bottom:  6px;
+}
+.prompt-card .prompt-text {
+  font-size:   15px;
+  line-height: 1.6;
+  color:       var(--primary-dark);
+}
+
+/* ------------------------------------------------------------
+   6. Reset & base
+   ------------------------------------------------------------ */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -6,20 +385,43 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, sans-serif;
-  line-height: 1.6;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: #EEEDFE;
-  color: #534AB7;
+  font-family:      var(--font-body);
+  font-size:        16px;
+  line-height:      1.6;
+  padding:          0.5rem 1rem;
+  color:            var(--primary-color);
+  background-color: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
 }
 
-a, a:hover, a:visited, a:focus {
+/* ------------------------------------------------------------
+   7. Links
+   ------------------------------------------------------------ */
+a,
+a:hover,
+a:visited,
+a:focus,
+a:active {
+  color:           var(--primary-color);
   text-decoration: none !important;
+  border:          none;
+  transition:      color 0.15s ease;
+}
+
+a:hover {
+  color: var(--primary-dark);
 }
 
 .nav-link {
   font-weight: bold;
-  color: #534AB7;
   padding-left: 0;
+}
+
+.nav-tabs .nav-item .nav-link {
+  border: none !important;
+  outline: none !important;
+}
+
+.nav-item-selected {
+  background-color: var(--primary-lighter);
 }
