@@ -11,7 +11,7 @@ export const Mood = () => {
                 border: 1px solid ${mood.text_color};
                 border-radius: 15px;
                 padding: 4px;
-                width: 10%;
+                width: 12%;
                 cursor: pointer;
             `;
 
@@ -30,6 +30,7 @@ export const Mood = () => {
                         this.style.backgroundColor = this.getAttribute('data-bg');
                         this.classList.add('selected');
                 ">
+                    ${mood.emoji}
                     ${mood.name}
                 </button>
             `;

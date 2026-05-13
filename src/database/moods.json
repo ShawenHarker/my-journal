@@ -2,30 +2,35 @@
   {
     "id": "mood_001",
     "name": "Great",
+    "emoji": "\uD83D\uDE01",
     "bg_color": "#FAEEDA",
     "text_color": "#633806"
   },
   {
     "id": "mood_002",
     "name": "Good",
+    "emoji": "\uD83D\uDE0A",
     "bg_color": "#E1F5EE",
     "text_color": "#085041"
   },
   {
     "id": "mood_003",
     "name": "Okay",
+    "emoji": "\uD83D\uDE10",
     "bg_color": "#EEEDFE",
     "text_color": "#7F77DD"
   },
   {
     "id": "mood_004",
     "name": " Low",
+    "emoji": "\uD83D\uDE14",
     "bg_color": "#E6F1FB",
     "text_color": "#0C447C"
   },
   {
     "id": "mood_005",
     "name": "Frustrated",
+    "emoji": "\uD83D\uDE24",
     "bg_color": "#FCEBEB",
     "text_color": "#E24B4A"
   }
