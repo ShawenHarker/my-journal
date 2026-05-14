@@ -1,16 +1,16 @@
 import { html, signal, Tina4Element } from "tina4js";
 import TagsData from "../database/tags.json";
+import { selectedTags } from "../state/new-entry-state";
 
 export class NewEntryTags extends Tina4Element {
     static shadow = false;
 
     showModal = signal<boolean>(false, 'showModal');
-    selectTags = signal<string[]>([], 'selectTags');
 
     private toggleTag(id: string) {
-        this.selectTags.value = this.selectTags.value.includes(id)
-            ? this.selectTags.value.filter(t => t !== id)
-            : [...this.selectTags.value, id];
+        selectedTags.value = selectedTags.value.includes(id)
+            ? selectedTags.value.filter(t => t !== id)
+            : [...selectedTags.value, id];
     }
 
     private renderModalTag(id: string, name: string, bg_color: string, text_color: string) {
@@ -19,7 +19,7 @@ export class NewEntryTags extends Tina4Element {
                     style="${() => `
                     background-color: ${bg_color};
                     color: ${text_color};
-                    display: ${this.selectTags.value.includes(id) ? 'none' : 'inline-block'};
+                    display: ${selectedTags.value.includes(id) ? 'none' : 'inline-block'};
                     border: 1px solid ${text_color};
                     border-radius: 15px;
                     padding: 2px 15px;
@@ -40,7 +40,7 @@ export class NewEntryTags extends Tina4Element {
                     style="${() => `
                     background-color: ${bg_color};
                     color: ${text_color};
-                    display: ${this.selectTags.value.includes(id) ? 'inline-block' : 'none'};
+                    display: ${selectedTags.value.includes(id) ? 'inline-block' : 'none'};
                     border: 1px solid ${text_color};
                     border-radius: 15px;
                     padding: 2px 15px;

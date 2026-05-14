@@ -1,10 +1,9 @@
-import { html, signal, Tina4Element } from "tina4js";
+import { html, Tina4Element } from "tina4js";
 import Moods from '../database/moods.json';
+import { selectedMood } from "../state/new-entry-state";
 
 export class NewEntryMoods extends Tina4Element {
     static shadow = false;
-
-    selectedMood = signal('', 'selectedMood');
 
     render() {
         return html`
@@ -18,17 +17,17 @@ export class NewEntryMoods extends Tina4Element {
                         id="${id}"
                         style="${() => `
                             color: ${text_color};
-                            background-color: ${this.selectedMood.value === id ? bg_color : 'transparent'};
+                            background-color: ${selectedMood.value === id ? bg_color : 'transparent'};
                             border: 1px solid ${text_color};
                             border-radius: 15px;
                             padding: 2px 15px;
                             cursor: pointer;
                         `}"
-                        @click=${() => this.selectedMood.value = id}
+                        @click=${() => selectedMood.value = id}
                         @mouseenter=${(e: MouseEvent) => (e.target as HTMLElement).style.backgroundColor = bg_color}
                         @mouseleave=${(e: MouseEvent) => {
                             (e.target as HTMLElement).style.backgroundColor = 
-                                    this.selectedMood.value === id ? bg_color : 'transparent'
+                                    selectedMood.value === id ? bg_color : 'transparent'
                         }}
                     >
                         ${emoji} ${name}
