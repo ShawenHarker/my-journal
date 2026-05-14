@@ -1,7 +1,8 @@
 import { html } from 'tina4js';
-import '../components/new-entry-header';
+import '@/components/new-entry-tags';
+import '@/components/new-entry-moods';
+import '@/components/new-entry-header';
 import Users from '../database/users.json';
-import '../components/new-entry-moods';
 
 export const NewEntry = () => {
   const user = Users[Math.floor(Math.random() * Users.length)];
@@ -15,5 +16,7 @@ export const NewEntry = () => {
     </new-entry-header>
     <div class="mt-3"></div>
     <new-entry-moods></new-entry-moods>
+    <div class="mt-2"></div>
+    <new-entry-tags></new-entry-tags>
   `;
 }
