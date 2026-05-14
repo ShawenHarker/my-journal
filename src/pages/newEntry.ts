@@ -1,19 +1,19 @@
 import { html } from 'tina4js';
-import { NewEntryHeader } from '../components/new-entry-header';
-import { Mood } from '../components/moods';
+import '../components/new-entry-header';
 import Users from '../database/users.json';
+import '../components/new-entry-moods';
 
 export const NewEntry = () => {
   const user = Users[Math.floor(Math.random() * Users.length)];
   const { name, current_streak, seven_day_streak } = user;
 
   return html`
-    ${NewEntryHeader({user: {name, current_streak, seven_day_streak}})}
-    <div class="mt-2">
-      ${Mood()}
-    </div>
-    <div class="mt-2">
-      
-    </div>
+    <new-entry-header
+        name=${name}
+        current_streak=${current_streak}
+        seven_day_streak=${seven_day_streak}>
+    </new-entry-header>
+    <div class="mt-3"></div>
+    <new-entry-moods></new-entry-moods>
   `;
 }
