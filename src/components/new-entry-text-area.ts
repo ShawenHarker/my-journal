@@ -1,11 +1,11 @@
-import { html, signal, Tina4Element } from "tina4js";
-import PromptsData from "../database/prompts.json";
-import { journaledText } from "../state/new-entry-state";
+import { html, signal, Tina4Element } from 'tina4js';
+import PromptsData from '../database/prompts.json';
+import { journaledText } from '../state/new-entry-state';
 
 export class NewEntryTextArea extends Tina4Element {
     static shadow = false;
 
-    randomPrompt = signal<string>('');
+    randomPrompt = signal<string>('', 'randomPrompt');
 
     private getRandomPrompt() {
         const prompt: { id: string, prompt: string } = PromptsData[Math.floor(Math.random() * PromptsData.length)];

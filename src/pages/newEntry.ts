@@ -41,12 +41,13 @@ export const NewEntry = () => {
 
   const handleSaveDraft = () => {
     const payload = buildPayload();
+    // Todo: Implement API call
     localStorage.setItem(DRAFT_KEY, JSON.stringify(payload));
     console.log('Draft saved:', payload);
   };
 
   return html`
-    <form class="container" @submit=${handleSubmit} method="POST" action="/entries">
+    <form @submit=${handleSubmit} method="POST" action="/entries">
       <new-entry-header
           name=${name}
           current_streak=${current_streak}
@@ -68,7 +69,20 @@ export const NewEntry = () => {
                 @click=${handleSaveDraft}>
           Save Draft
         </button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit"
+                class="btn btn-primary"
+                style="${() => {
+                  const isDisabled = journaledText.value === '' || selectedMood.value === '';
+                  return `
+                background-color: ${isDisabled ? 'transparent' : 'var(--primary-color)'};
+                border-color: var(--primary-color);
+                color: ${isDisabled ? 'var(--primary-color)' : '#fff'};
+            `;
+                }}"
+                ?disabled=${() => journaledText.value === '' || selectedMood.value === ''}
+        >
+          Submit
+        </button>
       </div>
     </form>
   `;
