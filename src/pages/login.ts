@@ -1,5 +1,6 @@
-import { html, signal } from 'tina4js';
+import { batch, html, navigate, signal } from 'tina4js';
 import { errorMessage } from '../state/new-entry-state';
+import { login } from '../api/account';
 
 export const Login = () => {
   const loginEmail = signal<string>('', 'loginEmail');
@@ -10,28 +11,24 @@ export const Login = () => {
       password: loginPassword.value,
   }
 
-  // Todo: Implement API call
-  const handleLoginSubmit = async (e: Event) => {
-      e.preventDefault();
-      // const response = await api.post('/login', payload);
+    const handleLoginSubmit = async (e: Event) => {
+        e.preventDefault();
+        const status = await login(payload);
 
-      // if (response.data.status !== 'successful') {
-      //     const err = new Error(response.data.notification);
-      //     errorMessage.value = err.message;
-      //     setTimeout(() => errorMessage.value = '', 5000);
-      //     return Promise.reject(err);
-      // }
+        if (status === 'successful') {
+            batch(() => {
+                loginEmail.value = '';
+                loginPassword.value = '';
+                errorMessage.value = '';
+            });
 
-      // if (response.data.token) {
-      //     localStorage.setItem('token', response.data.token);
-      //     batch(() => {
-      //         loginEmail.value = '';
-      //         loginPassword.value = '';
-      //         errorMessage.value = '';
-      //     });
-      //     navigate('/my-journal', { replace: true });
-      // }
-  };
+            navigate('/my-journal', { replace: true });
+        } else {
+            if (window.location.pathname !== '/login') {
+                navigate('/login');
+            }
+        }
+    };
 
   return html`
     <div class="d-flex justify-content-center align-items-center" style="height: 97vh;">
