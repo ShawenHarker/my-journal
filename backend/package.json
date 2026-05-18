@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A Tina4 Node.js project",
+  "main": "app.ts",
+  "scripts": {
+    "start": "npx tsx app.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "tina4-nodejs": "^3.12.10"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.0.0"
+  }
+}

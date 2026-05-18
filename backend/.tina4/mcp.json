@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tina4-live-docs": {
+      "url": "http://localhost:7148/__dev/api/mcp",
+      "description": "Live API docs for this Tina4 project (framework + user code)"
+    }
+  }
+}
