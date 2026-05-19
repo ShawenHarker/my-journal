@@ -1,5 +1,5 @@
 import { batch, html, navigate, signal } from 'tina4js';
-import { errorMessage } from '../state/new-entry-state';
+import { errorMessage } from '../state/global-state';
 import { login } from '../api/account';
 
 export const Login = () => {
@@ -32,7 +32,7 @@ export const Login = () => {
 
   return html`
     <div class="d-flex justify-content-center align-items-center" style="height: 97vh;">
-        <form id="login-form" method="POST" action="/login" @submit=${handleLoginSubmit} style="width: 100%; max-width: 400px;">
+        <form id="login-form" @submit=${handleLoginSubmit} style="width: 100%; max-width: 400px;">
             <h1 class="text-primary text-center">Journal With Me</h1>
             <h4 class="text-muted mb-3 text-center">Login to your account</h4>
             <p>
@@ -69,10 +69,10 @@ export const Login = () => {
                         style="${() => {
                             const isDisabled = loginEmail.value === '' || loginPassword.value === '';
                             return `
-                            background-color: ${isDisabled ? 'transparent' : 'var(--primary-color)'};
-                            border-color: var(--primary-color);
-                            color: ${isDisabled ? 'var(--primary-color)' : '#fff'};
-                        `;
+                                background-color: ${isDisabled ? 'transparent' : 'var(--primary-color)'};
+                                border-color: var(--primary-color);
+                                color: ${isDisabled ? 'var(--primary-color)' : '#fff'};
+                            `;
                         }}"
                         ?disabled=${() => loginEmail.value === '' || loginPassword.value === ''}
                 >
