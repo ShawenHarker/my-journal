@@ -1,0 +1,53 @@
+[
+  {
+    "id": "19e417565f5",
+    "timestamp": "1779214672Z",
+    "message": "Hey there! I noticed there are 14 uncommitted files in the project. It’s important to keep our commit history clean and up-to-date so we can easily track changes and collaborate smoothly. Let’s get those files committed soon, okay?",
+    "category": "uncommitted",
+    "actions": [
+      {
+        "label": "Let's commit",
+        "action": "commit"
+      },
+      {
+        "label": "I'm on it",
+        "action": "dismiss"
+      }
+    ],
+    "dismissed": false
+  },
+  {
+    "id": "19e4179f9b0",
+    "timestamp": "1779214972Z",
+    "message": "Hey there! I noticed there are 14 uncommitted files in the project. It’s important to keep our commits regular so we don’t lose any work or create merge conflicts down the line. Let’s get those files committed soon, okay?",
+    "category": "uncommitted",
+    "actions": [
+      {
+        "label": "Let's commit",
+        "action": "commit"
+      },
+      {
+        "label": "I'm on it",
+        "action": "dismiss"
+      }
+    ],
+    "dismissed": false
+  },
+  {
+    "id": "19e417e8e38",
+    "timestamp": "1779215272Z",
+    "message": "Hey there, I just took a look at the project, and it seems like there are 14 uncommitted files. This could be risky, as we might lose important changes if something goes wrong. Let’s make sure to commit these changes soon to keep our project safe and organized.",
+    "category": "uncommitted",
+    "actions": [
+      {
+        "label": "Create backup branch",
+        "action": "create_branch"
+      },
+      {
+        "label": "Not now",
+        "action": "dismiss"
+      }
+    ],
+    "dismissed": false
+  }
+]

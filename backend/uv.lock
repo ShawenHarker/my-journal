@@ -1,0 +1,23 @@
+version = 1
+revision = 3
+requires-python = ">=3.12"
+
+[[package]]
+name = "backend"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "tina4-python" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "tina4-python", specifier = ">=3.12.10" }]
+
+[[package]]
+name = "tina4-python"
+version = "3.12.10"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/45/3f/339a94013dae488fa237dfbf0a146deb715a5f89cec474a99a97b38a7a9b/tina4_python-3.12.10.tar.gz", hash = "sha256:fb07a6a943d277e9a792dc42f474e45d9394a033e778bc20757483f1ddefef9b", size = 1050813, upload-time = "2026-05-14T09:27:36.971Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4e/54/51168bafda6617384295c470fef51dd162adf2591068e09536810e440a4d/tina4_python-3.12.10-py3-none-any.whl", hash = "sha256:ab56afdc6dfdf164b2720804b84b9e120b5944ccfad278fe9afecb1214692df6", size = 1148993, upload-time = "2026-05-14T09:27:35.06Z" },
+]
