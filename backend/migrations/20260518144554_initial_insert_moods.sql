@@ -1,4 +1,4 @@
--- Migration: create_initial_insert_moods
+-- Migration: initial_insert_moods
 -- Created: 2026-05-18 14:45:54
 
 insert into moods (name, emoji, bg_color, text_color) values ('Great', '😁', '#FAEEDA', '#633806');

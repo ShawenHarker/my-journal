@@ -1,4 +1,4 @@
--- Migration: create_initial_insert_prompts
+-- Migration: initial_insert_prompts
 -- Created: 2026-05-18 14:46:23
 
 insert into prompts (prompt) values ('What''s one thing that happened recently that you didn''t expect — and how did it make you feel?');

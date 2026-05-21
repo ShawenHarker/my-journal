@@ -1,4 +1,4 @@
--- Migration: create_initial_insert_greetings
+-- Migration: initial_insert_greetings
 -- Created: 2026-05-18 14:45:05
 
 insert into greetings (time_of_day, greeting) values ('morning', 'Good morning, {name} — let''s start the day with a few honest words.');

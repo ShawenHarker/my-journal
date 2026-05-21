@@ -49,5 +49,22 @@
       }
     ],
     "dismissed": false
+  },
+  {
+    "id": "19e498cf6fc",
+    "timestamp": "1779350434Z",
+    "message": "Hey there, I noticed there are 14 uncommitted files in the project. This is a bit concerning because it increases the risk of losing work if something goes wrong, and it’s important we keep our commits clean and up to date to avoid any merge conflicts down the line. Let's make sure to commit those changes soon to keep everything organized and safe.",
+    "category": "uncommitted",
+    "actions": [
+      {
+        "label": "Create backup branch",
+        "action": "create_branch"
+      },
+      {
+        "label": "Not now",
+        "action": "dismiss"
+      }
+    ],
+    "dismissed": false
   }
 ]

@@ -1,4 +1,4 @@
--- Migration: create_initial_insert_tags
+-- Migration: initial_insert_tags
 -- Created: 2026-05-18 14:46:44
 
 insert into tags (name, bg_color, text_color) values ('Work', '#EEEDFE', '#3C3489');
