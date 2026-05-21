@@ -4,11 +4,12 @@
 create table users
 (
     id                  integer     primary key autoincrement,
-    name                text        not null unique,
+    first_name          text        not null,
+    last_name           text        not null,
     email               text        not null unique,
     password            text        not null,
-    current_streak      integer     not null,
-    seven_day_streak    integer     not null,
+    current_streak      integer     not null default 0,
+    seven_day_streak    integer     not null default 0,
     created_at          timestamp   default CURRENT_TIMESTAMP
 );
 

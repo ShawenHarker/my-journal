@@ -18,5 +18,15 @@
     "last_prompted": "1779215272Z",
     "dismissed": false,
     "acted_on": false
+  },
+  {
+    "id": "no_tests",
+    "category": "untested",
+    "level": 1,
+    "message": "2 routes with no test files at all",
+    "first_seen": "1779363212Z",
+    "last_prompted": "1779363212Z",
+    "dismissed": false,
+    "acted_on": false
   }
 ]

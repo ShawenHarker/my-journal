@@ -40,7 +40,7 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
 
 export const registerNewUser = async (credentials: RegistrationCredentialsProps ): Promise<string> => {
     try {
-        const response = await apiHandler('auth/register', 'POST', credentials) as ResponseProps;
+        const response = await apiHandler('/api/auth/register', 'POST', credentials) as ResponseProps;
 
         if (response.data.token && response.data.status === 200) {
             localStorage.setItem('accessToken', response.data.token);

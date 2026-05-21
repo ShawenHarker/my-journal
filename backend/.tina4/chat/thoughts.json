@@ -66,5 +66,22 @@
       }
     ],
     "dismissed": false
+  },
+  {
+    "id": "19e4a4ff103",
+    "timestamp": "1779363212Z",
+    "message": "Hey there! I noticed there are 14 uncommitted files in the project, which could be risky if anything happens to your local environment. Let's make sure to commit those changes soon to keep our project safe and organized.",
+    "category": "uncommitted",
+    "actions": [
+      {
+        "label": "Create backup branch",
+        "action": "create_branch"
+      },
+      {
+        "label": "Not now",
+        "action": "dismiss"
+      }
+    ],
+    "dismissed": false
   }
 ]
