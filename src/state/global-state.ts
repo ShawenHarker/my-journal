@@ -1,19 +1,20 @@
 import { signal } from 'tina4js';
+import { persistentSignal } from '../helpers/helpers';
 
 interface UserProps {
     id: number;
-    first_name: string;
-    last_name: string;
-    current_streak: number;
-    seven_day_streak: number;
+    firstName: string;
+    lastName: string;
+    currentStreak: number;
+    sevenDayStreak: number;
 }
 
-export const user = signal<UserProps>({
+export const user = persistentSignal<UserProps>({
     id: 0,
-    first_name: '',
-    last_name: '',
-    current_streak: 0,
-    seven_day_streak: 0,
+    firstName: '',
+    lastName: '',
+    currentStreak: 0,
+    sevenDayStreak: 0,
 }, 'user');
 export const errorMessage = signal<string>('', 'errorMessage');
 export const successMessage = signal<string>('', 'successMessage');

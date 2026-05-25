@@ -1,6 +1,6 @@
 import apiHandler, { handleError } from './apiHandler';
-import { setErrorMessage } from "../helpers/helpers";
-import { user, successMessage } from "../state/global-state";
+import { setErrorMessage } from '../helpers/helpers';
+import { user, successMessage } from '../state/global-state';
 
 interface LoginCredentialsProps {
     email: string;
@@ -36,7 +36,15 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
         if (response.info?.accessToken && response.status === 'Successful') {
             localStorage.setItem('accessToken', response.info.accessToken);
             successMessage.value = 'Login successful';
-            user.value = response.info.user;
+
+            user.value = {
+                id: response.info.user.id,
+                firstName: response.info.user.first_name,
+                lastName: response.info.user.last_name,
+                currentStreak: response.info.user.current_streak,
+                sevenDayStreak: response.info.user.seven_day_streak
+            };
+
             return 'Successful';
         }
 
@@ -51,10 +59,10 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
 export const registerNewUser = async (credentials: RegistrationCredentialsProps ): Promise<string> => {
     try {
         const data = {
-            "first_name": credentials.firstName,
-            "last_name": credentials.lastName,
-            "email": credentials.email,
-            "password": credentials.password
+            'first_name': credentials.firstName,
+            'last_name': credentials.lastName,
+            'email': credentials.email,
+            'password': credentials.password
         }
 
         const response = await apiHandler('api/auth/register', 'POST', data) as ResponseLoginProps;
@@ -62,7 +70,15 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
         if (response.info?.accessToken && response.status === 'Successful') {
             localStorage.setItem('accessToken', response.info.accessToken);
             successMessage.value = 'Registration successful';
-            user.value = response.info.user;
+
+            user.value = {
+                id: response.info.user.id,
+                firstName: response.info.user.first_name,
+                lastName: response.info.user.last_name,
+                currentStreak: response.info.user.current_streak,
+                sevenDayStreak: response.info.user.seven_day_streak
+            };
+
             return 'Successful';
         }
 

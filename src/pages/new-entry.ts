@@ -8,13 +8,12 @@ import '@/components/new-entry-tags';
 import '@/components/new-entry-moods';
 import '@/components/new-entry-header';
 import '@/components/new-entry-text-area';
-import Users from '../database/users.json';
+import { user } from '../state/global-state';
 
 const DRAFT_KEY = 'journal_draft';
 
 export const NewEntry = () => {
-  const user = Users[Math.floor(Math.random() * Users.length)];
-  const { name, current_streak, seven_day_streak } = user;
+  const { firstName, lastName, currentStreak, sevenDayStreak } = user.value;
 
   const savedDraft = localStorage.getItem(DRAFT_KEY);
   if (savedDraft) {
@@ -49,9 +48,10 @@ export const NewEntry = () => {
   return html`
     <form @submit=${handleSubmit} method="POST" action="/entries">
       <new-entry-header
-          name=${name}
-          current_streak=${current_streak}
-          seven_day_streak=${seven_day_streak}>
+          firstName=${firstName}
+          lastName=${lastName}
+          current_streak=${currentStreak}
+          seven_day_streak=${sevenDayStreak}>
       </new-entry-header>
       <div class="mt-3"></div>
       <new-entry-moods></new-entry-moods>

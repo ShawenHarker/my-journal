@@ -9,7 +9,8 @@ const getTimeOfDay = (hour: number): string => {
 
 export class NewEntryHeader extends Tina4Element {
   static props = {
-    name: String,
+    firstName: String,
+    lastName: String,
     current_streak: Number,
     seven_day_streak: Number,
   };
@@ -17,13 +18,10 @@ export class NewEntryHeader extends Tina4Element {
   static shadow = false;
 
   render() {
-    const name = this.prop('name').value as string;
+    const firstName = this.prop('firstName').value as string;
+    const lastName = this.prop('lastName').value as string;
     const currentStreak= this.prop('current_streak').value as number;
     const sevenDayStreak = this.prop('seven_day_streak').value as number;
-
-    const splitUserName = name.split(' ');
-    const initials = splitUserName.map((n: string) => n.charAt(0).toUpperCase()).join('');
-    const firstName = splitUserName[0];
 
     const date = new Date();
     const timeOfDay = getTimeOfDay(date.getHours());
@@ -46,7 +44,7 @@ export class NewEntryHeader extends Tina4Element {
         <section class="d-flex">
           <div class="d-flex align-items-center justify-content-center p-1 mt-1 primary-bg rounded-circle"
                style="width: 60px; height: 60px;">
-            <h4 class="header-text">${initials}</h4>
+            <h4 class="header-text">${firstName.charAt(0)}${lastName.charAt(0)}</h4>
           </div>
           <div class="d-flex flex-column ms-2 mt-2">
             <h6 class="header-text" style="margin-bottom: -1px;">${greetingText}</h6>
