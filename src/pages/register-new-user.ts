@@ -10,16 +10,9 @@ export const RegisterNewUser = () => {
     const registerPassword = signal<string>('', 'registerPassword');
     const isPasswordMatch = signal<boolean>(false, 'isPasswordMatch');
 
-    const handlePasswordMatch = () => {
-        isPasswordMatch.value = registerPassword.value === registerConfirmPassword.value;
+    const handlePasswordMatch = (currentPassword: string, currentConfirm: string) => {
+        isPasswordMatch.value = currentPassword === currentConfirm;
     };
-
-    const payload = {
-        firstName: registerFirstName.value,
-        lastName: registerLastName.value,
-        email: registerEmail.value,
-        password: registerPassword.value
-    }
 
     const handleRegistrationSubmit = async (e: Event) => {
         e.preventDefault();
@@ -29,9 +22,16 @@ export const RegisterNewUser = () => {
             return;
         }
 
+        const payload = {
+            firstName: registerFirstName.value,
+            lastName: registerLastName.value,
+            email: registerEmail.value,
+            password: registerPassword.value
+        }
+
         const status = await registerNewUser(payload);
 
-        if (status === 'successful') {
+        if (status === 'Successful') {
             batch(() => {
                 registerFirstName.value = '';
                 registerLastName.value = '';
@@ -41,7 +41,7 @@ export const RegisterNewUser = () => {
                 errorMessage.value = '';
             });
 
-            navigate('/my-journal', { replace: true });
+            navigate('/new-entry', { replace: true });
         } else {
             if (window.location.pathname !== '/login') {
                 navigate('/login');
@@ -102,8 +102,8 @@ export const RegisterNewUser = () => {
                         "
                        type="text"
                        @input=${(e: Event) => {
-                           handlePasswordMatch();
-                           registerPassword.value = (e.target as HTMLInputElement).value
+                           registerPassword.value = (e.target as HTMLInputElement).value;
+                           handlePasswordMatch(registerPassword.value, registerConfirmPassword.value);
                        }}>
                 <input placeholder="Confirm Password"
                        style="
@@ -117,21 +117,21 @@ export const RegisterNewUser = () => {
                        "
                        type="text"
                        @input=${(e: Event) => {
-                           handlePasswordMatch();
-                           registerConfirmPassword.value = (e.target as HTMLInputElement).value
+                           registerConfirmPassword.value = (e.target as HTMLInputElement).value;
+                           handlePasswordMatch(registerPassword.value, registerConfirmPassword.value);
                        }}>
                 <div class="d-flex justify-content-end">
                     <button type="submit"
                             class="btn btn-primary"
                             style="${() => {
-                                const isDisabled = registerEmail.value === '' || isPasswordMatch.value;
+                                const isDisabled = registerEmail.value === '' || !isPasswordMatch.value;
                                 return `
                                 background-color: ${isDisabled ? 'transparent' : 'var(--primary-color)'};
                                 border-color: var(--primary-color);
                                 color: ${isDisabled ? 'var(--primary-color)' : '#fff'};
                             `;
                             }}"
-                            ?disabled=${() => registerEmail.value === '' || isPasswordMatch.value}
+                            ?disabled=${() => registerEmail.value === '' || !isPasswordMatch.value}
                     >
                         Submit
                     </button>

@@ -47,7 +47,6 @@ export function handleError(err: unknown): never {
 const apiHandler = async (url: string, method: string, data?: unknown) => {
     const key = makeKey(method, url, data);
 
-    // Abort previous request for the same key
     const prev = pendingRequests.get(key);
     if (prev) {
         prev.abort();
@@ -91,15 +90,12 @@ const apiHandler = async (url: string, method: string, data?: unknown) => {
             throw new Error('Failed to parse server response');
         }
     } catch (error) {
-        // Ignore aborted requests (do not count as failures)
         if (error instanceof Error && error.name === "AbortError") {
             result = undefined;
         } else {
-            result = undefined;
-            handleError(error);
+            throw error;
         }
     } finally {
-        // Clean up controller for this key
         if (pendingRequests.get(key) === controller) {
             pendingRequests.delete(key);
         }
@@ -108,7 +104,7 @@ const apiHandler = async (url: string, method: string, data?: unknown) => {
     return result;
 };
 
-const apiRequest = async (method: string, url: string, data?: unknown) => {
+const apiRequest = async (url: string, method: string, data?: unknown) => {
     if (failureCount >= MAX_FAILURES) {
         throw new Error("Too many failed API requests. Throttling stopped.");
     }
@@ -116,21 +112,14 @@ const apiRequest = async (method: string, url: string, data?: unknown) => {
     await sleep(THROTTLE_MS);
 
     try {
-        let response = null;
-
-        response = await apiHandler(url, method, data);
-
+        const response = await apiHandler(url, method, data);
         failureCount = 0;
         return response;
     } catch (error) {
-        // Only count non-abort failures
         if (error instanceof Error && error.name !== "AbortError") {
             failureCount += 1;
         }
-
-        if (failureCount >= MAX_FAILURES) {
-            handleError(error);
-        }
+        throw error;
     }
 };
 

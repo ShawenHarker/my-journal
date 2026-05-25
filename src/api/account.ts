@@ -1,16 +1,24 @@
 import apiHandler, { handleError } from './apiHandler';
 import { setErrorMessage } from "../helpers/helpers";
+import { user, successMessage } from "../state/global-state";
 
 interface LoginCredentialsProps {
     email: string;
     password: string;
 }
 
-interface ResponseProps {
-    data: {
-        token: string;
-        message: string;
-        status: number;
+interface ResponseLoginProps {
+    status: string;
+    notification: string;
+    info: {
+        accessToken: string;
+        user: {
+            id: number;
+            first_name: string;
+            last_name: string;
+            current_streak: number;
+            seven_day_streak: number;
+        }
     }
 }
 
@@ -23,34 +31,45 @@ interface RegistrationCredentialsProps {
 
 export const login = async (credentials: LoginCredentialsProps): Promise<string> => {
     try {
-        const response = await apiHandler('auth/login', 'POST', credentials) as ResponseProps;
+        const response = await apiHandler('auth/login', 'POST', credentials) as ResponseLoginProps;
 
-        if (response.data.token && response.data.status === 200) {
-            localStorage.setItem('accessToken', response.data.token);
-            return 'successful';
+        if (response.info?.accessToken && response.status === 'Successful') {
+            localStorage.setItem('accessToken', response.info.accessToken);
+            successMessage.value = 'Login successful';
+            user.value = response.info.user;
+            return 'Successful';
         }
 
-        setErrorMessage(response.data.message);
-        return 'error';
+        setErrorMessage(response.notification);
+        return 'Error';
     } catch (e: unknown) {
         handleError(e);
-        return 'error';
+        return 'Error';
     }
 }
 
 export const registerNewUser = async (credentials: RegistrationCredentialsProps ): Promise<string> => {
     try {
-        const response = await apiHandler('/api/auth/register', 'POST', credentials) as ResponseProps;
-
-        if (response.data.token && response.data.status === 200) {
-            localStorage.setItem('accessToken', response.data.token);
-            return 'successful';
+        const data = {
+            "first_name": credentials.firstName,
+            "last_name": credentials.lastName,
+            "email": credentials.email,
+            "password": credentials.password
         }
 
-        setErrorMessage(response.data.message);
-        return 'error';
+        const response = await apiHandler('api/auth/register', 'POST', data) as ResponseLoginProps;
+
+        if (response.info?.accessToken && response.status === 'Successful') {
+            localStorage.setItem('accessToken', response.info.accessToken);
+            successMessage.value = 'Registration successful';
+            user.value = response.info.user;
+            return 'Successful';
+        }
+
+        setErrorMessage(response.notification);
+        return 'Error';
     } catch (e: unknown) {
         handleError(e);
-        return 'error';
+        return 'Error';
     }
 }

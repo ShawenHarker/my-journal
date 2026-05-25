@@ -60,7 +60,7 @@ export const Login = () => {
                         margin-bottom: 1rem;
                         padding: 4px 8px;
                     "
-                   type="email"
+                   type="text"
                    @input=${(e: Event) => loginPassword.value = (e.target as HTMLInputElement).value}>
             <a href="/forgot-password" class="d-flex justify-content-end mb-3">Forget Password?</a>
             <div class="d-flex justify-content-end">

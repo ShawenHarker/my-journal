@@ -29,8 +29,8 @@ class AuthUser:
 
         try:
             user = User()
-            user.first_name = request.body["firstName"]
-            user.last_name = request.body["lastName"]
+            user.first_name = request.body["first_name"]
+            user.last_name = request.body["last_name"]
             user.email = request.body["email"]
             user.password = request.body["password"]
             user.save()
