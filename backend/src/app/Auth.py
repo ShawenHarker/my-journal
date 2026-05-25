@@ -40,7 +40,7 @@ class AuthUser:
             return Responses.error_message(response, f"{type(e).__name__}: {str(e)}")
 
         user_id = user.id
-        accessToken = Auth.get_token({"id": user_id})
+        access_token = Auth.get_token({"id": user_id})
 
         res = {
             "user": {
@@ -52,6 +52,46 @@ class AuthUser:
             },
         }
 
-        response.cookie("accessToken", accessToken, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
+        response.cookie("access-token", access_token, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
 
         return Responses.success_message(response, "User registered successfully", res)
+
+    @staticmethod
+    async def login_user(request, response):
+        """
+        Login a user
+        :param request:
+        :param response:
+        :return:
+        """
+        request.body["email"] = request.body["email"].lower()
+
+        try:
+            user = User().select("SELECT * FROM users WHERE email = ?", [request.body["email"]])
+
+            if not user:
+                return Responses.error_message(response, "User not found")
+
+            if not Auth.check_password(request.body["password"], user.password):
+                return Responses.error_message(response, "Invalid password")
+
+            user_id = user.id
+            access_token = Auth.get_token({"id": user_id})
+
+            res = {
+                "user": {
+                    "id": user_id,
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "current_streak": user.current_streak,
+                    "seven_day_streak": user.seven_day_streak
+                },
+            }
+
+            response.cookie("access-token", access_token, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
+
+            return Responses.success_message(response, "User logged in successfully", res)
+        except Exception as e:
+            Log.error(f"{type(e).__name__}: {str(e)}")
+
+            return Responses.error_message(response, f"{type(e).__name__}: {str(e)}")

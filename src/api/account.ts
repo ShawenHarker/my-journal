@@ -30,7 +30,7 @@ interface RegistrationCredentialsProps {
 
 export const login = async (credentials: LoginCredentialsProps): Promise<string> => {
     try {
-        const response = await apiHandler('auth/login', 'POST', credentials) as ResponseLoginProps;
+        const response = await apiHandler('api/auth/login', 'POST', credentials) as ResponseLoginProps;
 
         if (response.status === 'Successful') {
             successMessage.value = 'Login successful';

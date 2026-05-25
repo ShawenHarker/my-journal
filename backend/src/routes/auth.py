@@ -12,3 +12,13 @@ async def register_user(request, response):
     :return:
     """
     return await AuthUser.register_user(request, response)
+
+@post("/api/auth/login")
+async def login_user(request, response):
+    """
+    Login a user
+    :param request:
+    :param response:
+    :return:
+    """
+    return await AuthUser.login_user(request, response)
