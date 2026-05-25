@@ -50,7 +50,8 @@ class AuthUser:
                 "current_streak": user.current_streak,
                 "seven_day_streak": user.seven_day_streak
             },
-            "accessToken": accessToken
         }
+
+        response.cookie("accessToken", accessToken, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
 
         return Responses.success_message(response, "User registered successfully", res)

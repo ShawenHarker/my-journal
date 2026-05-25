@@ -33,8 +33,7 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
     try {
         const response = await apiHandler('auth/login', 'POST', credentials) as ResponseLoginProps;
 
-        if (response.info?.accessToken && response.status === 'Successful') {
-            localStorage.setItem('accessToken', response.info.accessToken);
+        if (response.status === 'Successful') {
             successMessage.value = 'Login successful';
 
             user.value = {
@@ -67,8 +66,7 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
 
         const response = await apiHandler('api/auth/register', 'POST', data) as ResponseLoginProps;
 
-        if (response.info?.accessToken && response.status === 'Successful') {
-            localStorage.setItem('accessToken', response.info.accessToken);
+        if (response.status === 'Successful') {
             successMessage.value = 'Registration successful';
 
             user.value = {
