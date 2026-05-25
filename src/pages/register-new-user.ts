@@ -1,6 +1,7 @@
 import { batch, html, navigate, signal } from 'tina4js';
 import { errorMessage } from "../state/global-state";
 import { registerNewUser } from "../api/account";
+import '@/components/show-toast-message';
 
 export const RegisterNewUser = () => {
     const registerFirstName = signal<string>('', 'registerFirstName');
@@ -38,7 +39,6 @@ export const RegisterNewUser = () => {
                 registerEmail.value = '';
                 registerPassword.value = '';
                 registerConfirmPassword.value = '';
-                errorMessage.value = '';
             });
 
             navigate('/new-entry', { replace: true });
@@ -50,12 +50,14 @@ export const RegisterNewUser = () => {
     };
 
     return html`
-        <div class="d-flex justify-content-center align-items-center" style="height: 97vh;">
-            <form id="register-form" @submit=${handleRegistrationSubmit} style="width: 100%; max-width: 400px;">
-                <h1 class="text-primary text-center">Journal With Me</h1>
-                <h4 class="text-muted mb-3 text-center">Create a new account</h4>
-                <input placeholder="First Name"
-                       style="
+        <div>
+            <show-toast-message></show-toast-message>
+            <div class="d-flex justify-content-center align-items-center" style="height: 97vh;">
+                <form id="register-form" @submit=${handleRegistrationSubmit} style="width: 100%; max-width: 400px;">
+                    <h1 class="text-primary text-center">Journal With Me</h1>
+                    <h4 class="text-muted mb-3 text-center">Create a new account</h4>
+                    <input placeholder="First Name"
+                           style="
                             width: 100%;
                             max-width: 400px;
                             background-color: transparent;
@@ -64,10 +66,10 @@ export const RegisterNewUser = () => {
                             margin-bottom: 1rem;
                             padding: 4px 8px;
                         "
-                       type="text"
-                       @input=${(e: Event) => registerFirstName.value = (e.target as HTMLInputElement).value}>
-                <input placeholder="Last Name"
-                       style="
+                           type="text"
+                           @input=${(e: Event) => registerFirstName.value = (e.target as HTMLInputElement).value}>
+                    <input placeholder="Last Name"
+                           style="
                             width: 100%;
                             max-width: 400px;
                             background-color: transparent;
@@ -76,10 +78,10 @@ export const RegisterNewUser = () => {
                             margin-bottom: 1rem;
                             padding: 4px 8px;
                         "
-                       type="text"
-                       @input=${(e: Event) => registerLastName.value = (e.target as HTMLInputElement).value}>
-                <input placeholder="Email"
-                       style="
+                           type="text"
+                           @input=${(e: Event) => registerLastName.value = (e.target as HTMLInputElement).value}>
+                    <input placeholder="Email"
+                           style="
                             width: 100%;
                             max-width: 400px;
                             background-color: transparent;
@@ -88,10 +90,10 @@ export const RegisterNewUser = () => {
                             margin-bottom: 1rem;
                             padding: 4px 8px;
                         "
-                       type="email"
-                       @input=${(e: Event) => registerEmail.value = (e.target as HTMLInputElement).value}>
-                <input placeholder="Password"
-                       style="
+                           type="email"
+                           @input=${(e: Event) => registerEmail.value = (e.target as HTMLInputElement).value}>
+                    <input placeholder="Password"
+                           style="
                             width: 100%;
                             max-width: 400px;
                             background-color: transparent;
@@ -100,13 +102,13 @@ export const RegisterNewUser = () => {
                             margin-bottom: 1rem;
                             padding: 4px 8px;
                         "
-                       type="text"
-                       @input=${(e: Event) => {
-                           registerPassword.value = (e.target as HTMLInputElement).value;
-                           handlePasswordMatch(registerPassword.value, registerConfirmPassword.value);
-                       }}>
-                <input placeholder="Confirm Password"
-                       style="
+                           type="text"
+                           @input=${(e: Event) => {
+                               registerPassword.value = (e.target as HTMLInputElement).value;
+                               handlePasswordMatch(registerPassword.value, registerConfirmPassword.value);
+                           }}>
+                    <input placeholder="Confirm Password"
+                           style="
                             width: 100%;
                             max-width: 400px;
                             background-color: transparent;
@@ -115,40 +117,33 @@ export const RegisterNewUser = () => {
                             margin-bottom: 1rem;
                             padding: 4px 8px;
                        "
-                       type="text"
-                       @input=${(e: Event) => {
-                           registerConfirmPassword.value = (e.target as HTMLInputElement).value;
-                           handlePasswordMatch(registerPassword.value, registerConfirmPassword.value);
-                       }}>
-                <div class="d-flex justify-content-end">
-                    <button type="submit"
-                            class="btn btn-primary"
-                            style="${() => {
-                                const isDisabled = registerEmail.value === '' || !isPasswordMatch.value;
-                                return `
+                           type="text"
+                           @input=${(e: Event) => {
+                               registerConfirmPassword.value = (e.target as HTMLInputElement).value;
+                               handlePasswordMatch(registerPassword.value, registerConfirmPassword.value);
+                           }}>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit"
+                                class="btn btn-primary"
+                                style="${() => {
+                                    const isDisabled = registerEmail.value === '' || !isPasswordMatch.value;
+                                    return `
                                 background-color: ${isDisabled ? 'transparent' : 'var(--primary-color)'};
                                 border-color: var(--primary-color);
                                 color: ${isDisabled ? 'var(--primary-color)' : '#fff'};
                             `;
-                            }}"
-                            ?disabled=${() => registerEmail.value === '' || !isPasswordMatch.value}
-                    >
-                        Submit
-                    </button>
-                </div>
-                <p>
-                    Already have an account, login
-                    <a href="/login" class="fw-bold">here</a>
-                </p>
-                <p class="text-danger"
-                   style="${() => `
-                    margin-bottom: 1rem;
-                    display: ${errorMessage.value ? 'block' : 'none'};
-               `}"
-                >
-                    ${() => errorMessage.value}
-                </p>
-            </form> 
+                                }}"
+                                ?disabled=${() => registerEmail.value === '' || !isPasswordMatch.value}
+                        >
+                            Submit
+                        </button>
+                    </div>
+                    <p>
+                        Already have an account, login
+                        <a href="/login" class="fw-bold">here</a>
+                    </p>
+                </form>
+            </div>
         </div>
     `;
 }

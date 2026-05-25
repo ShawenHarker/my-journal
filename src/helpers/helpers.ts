@@ -1,12 +1,4 @@
-import { errorMessage } from "../state/global-state";
 import { signal, Signal } from 'tina4js';
-
-export const setErrorMessage = (message: string) => {
-    errorMessage.value = message;
-    setTimeout(() => {
-        errorMessage.value = '';
-    }, 3000);
-}
 
 function persist<T>(s: Signal<T>, key: string) {
     s._subscribe(() => {

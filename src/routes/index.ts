@@ -1,5 +1,6 @@
 import { html, route, navigate } from 'tina4js';
-import  '@/components/horizontal-tabs';
+import '@/components/horizontal-tabs';
+import '@/components/show-toast-message';
 import { Login } from '../pages/login';
 import { NewEntry } from '../pages/new-entry';
 import { MyJournal } from '../pages/my-journal';
@@ -8,6 +9,7 @@ import { RegisterNewUser } from '../pages/register-new-user';
 
 const layout = (content: any, activePath: string) => html`
     <horizontal-tabs activePath="${activePath}"></horizontal-tabs>
+    <show-toast-message></show-toast-message>
     ${content}
 `;
 

@@ -52,20 +52,6 @@
   --gray-dark:           #444441;
   --gray-darker:         #2C2C2A;
 
-  /* Mood dot colors */
-  --mood-great-dot:      #EF9F27;
-  --mood-good-dot:       #1D9E75;
-  --mood-okay-dot:       #7F77DD;
-  --mood-low-dot:        #378ADD;
-  --mood-frustrated-dot: #D85A30;
-
-  /* Mood badge — text */
-  --mood-great-text:     #633806;
-  --mood-good-text:      #085041;
-  --mood-okay-text:      #3C3489;
-  --mood-low-text:       #0C447C;
-  --mood-frustrated-text:#A32D2D;
-
   /* Semantic */
   --color-success:       #1D9E75;
   --color-warning:       #EF9F27;

@@ -1,6 +1,5 @@
 import apiHandler, { handleError } from './apiHandler';
-import { setErrorMessage } from '../helpers/helpers';
-import { user, successMessage } from '../state/global-state';
+import { errorMessage, user, successMessage } from '../state/global-state';
 
 interface LoginCredentialsProps {
     email: string;
@@ -47,7 +46,7 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
             return 'Successful';
         }
 
-        setErrorMessage(response.notification);
+        errorMessage.value = response.notification;
         return 'Error';
     } catch (e: unknown) {
         handleError(e);
@@ -80,7 +79,7 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
             return 'Successful';
         }
 
-        setErrorMessage(response.notification);
+        errorMessage.value = response.notification;
         return 'Error';
     } catch (e: unknown) {
         handleError(e);
