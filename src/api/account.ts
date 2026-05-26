@@ -13,7 +13,6 @@ interface ResponseLoginProps {
     info: {
         accessToken: string;
         user: {
-            id: number;
             first_name: string;
             last_name: string;
             current_streak: number;
@@ -37,7 +36,6 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
             successMessage.value = response.notification;
 
             user.value = {
-                id: response.info.user.id,
                 firstName: response.info.user.first_name,
                 lastName: response.info.user.last_name,
                 currentStreak: response.info.user.current_streak,
@@ -70,7 +68,6 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
             successMessage.value = response.notification;
 
             user.value = {
-                id: response.info.user.id,
                 firstName: response.info.user.first_name,
                 lastName: response.info.user.last_name,
                 currentStreak: response.info.user.current_streak,

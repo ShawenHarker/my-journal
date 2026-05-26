@@ -39,12 +39,10 @@ class AuthUser:
 
             return Responses.error_message(response, f"{type(e).__name__}: {str(e)}")
 
-        user_id = user.id
-        access_token = Auth.get_token({"id": user_id})
+        access_token = Auth.get_token({"id": user.id})
 
         res = {
             "user": {
-                "id": user_id,
                 "first_name": user.first_name,
                 "last_name": user.last_name,
                 "current_streak": user.current_streak,
@@ -80,12 +78,10 @@ class AuthUser:
             if not Auth.check_password(request.body["password"], user.password):
                 return Responses.error_message(response, "Invalid email or password")
 
-            user_id = user.id
-            access_token = Auth.get_token({"id": user_id})
+            access_token = Auth.get_token({"id": user.id})
 
             res = {
                 "user": {
-                    "id": user_id,
                     "first_name": user.first_name,
                     "last_name": user.last_name,
                     "current_streak": user.current_streak,

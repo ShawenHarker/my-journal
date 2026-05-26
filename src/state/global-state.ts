@@ -2,7 +2,6 @@ import { signal } from 'tina4js';
 import { persistentSignal } from '../helpers/helpers';
 
 interface UserProps {
-    id: number;
     firstName: string;
     lastName: string;
     currentStreak: number;
@@ -10,7 +9,6 @@ interface UserProps {
 }
 
 export const user = persistentSignal<UserProps>({
-    id: 0,
     firstName: '',
     lastName: '',
     currentStreak: 0,
