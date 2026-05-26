@@ -67,13 +67,18 @@ class AuthUser:
         request.body["email"] = request.body["email"].lower()
 
         try:
-            user = User().select("SELECT * FROM users WHERE email = ?", [request.body["email"]])
+            users = User().select(
+                "SELECT * FROM users WHERE email = ?",
+                [request.body["email"]]
+            )
 
-            if not user:
+            if not users:
                 return Responses.error_message(response, "User not found")
 
+            user = users[0]
+
             if not Auth.check_password(request.body["password"], user.password):
-                return Responses.error_message(response, "Invalid password")
+                return Responses.error_message(response, "Invalid email or password")
 
             user_id = user.id
             access_token = Auth.get_token({"id": user_id})

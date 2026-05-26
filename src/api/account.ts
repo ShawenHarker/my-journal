@@ -1,4 +1,5 @@
-import apiHandler, { handleError } from './apiHandler';
+import apiHandler from './apiHandler';
+import {handleError} from "../helpers/helpers";
 import { errorMessage, user, successMessage } from '../state/global-state';
 
 interface LoginCredentialsProps {
@@ -33,7 +34,7 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
         const response = await apiHandler('api/auth/login', 'POST', credentials) as ResponseLoginProps;
 
         if (response.status === 'Successful') {
-            successMessage.value = 'Login successful';
+            successMessage.value = response.notification;
 
             user.value = {
                 id: response.info.user.id,
@@ -66,7 +67,7 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
         const response = await apiHandler('api/auth/register', 'POST', data) as ResponseLoginProps;
 
         if (response.status === 'Successful') {
-            successMessage.value = 'Registration successful';
+            successMessage.value = response.notification;
 
             user.value = {
                 id: response.info.user.id,

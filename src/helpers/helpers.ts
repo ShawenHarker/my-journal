@@ -1,4 +1,19 @@
 import { signal, Signal } from 'tina4js';
+import { errorMessage } from '../state/global-state';
+
+export function handleError(err: unknown): never {
+    if (err instanceof Error) {
+        errorMessage.value = err.message;
+        throw new Error(err.message);
+    }
+
+    if (typeof err === 'string') {
+        errorMessage.value = err;
+    }
+
+    errorMessage.value = 'An unknown error occurred.';
+    throw new Error('An unknown error occurred.');
+}
 
 function persist<T>(s: Signal<T>, key: string) {
     s._subscribe(() => {

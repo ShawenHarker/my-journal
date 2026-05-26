@@ -3,7 +3,7 @@ from tina4_python.core.router import post, middleware
 from src.middleware.ApiKeyMiddleware import ApiKeyMiddleware
 
 @middleware(ApiKeyMiddleware)
-@post("/api/auth/register")
+@post('/api/auth/registe')
 async def register_user(request, response):
     """
     Register a new user
@@ -13,7 +13,8 @@ async def register_user(request, response):
     """
     return await AuthUser.register_user(request, response)
 
-@post("/api/auth/login")
+@middleware(ApiKeyMiddleware)
+@post('/api/auth/login')
 async def login_user(request, response):
     """
     Login a user

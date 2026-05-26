@@ -1,4 +1,5 @@
 import { errorMessage } from '../state/global-state';
+import { navigate } from 'tina4js';
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -28,20 +29,6 @@ const pendingRequests: Map<string, AbortController> = new Map();
 
 const makeKey = (method: string, url: string, data?: unknown) =>
     `${method}|${url}|${data ? JSON.stringify(data) : ''}`;
-
-export function handleError(err: unknown): never {
-    if (err instanceof Error) {
-        errorMessage.value = err.message;
-        throw new Error(err.message);
-    }
-
-    if (typeof err === 'string') {
-        errorMessage.value = err;
-    }
-
-    errorMessage.value = 'An unknown error occurred.';
-    throw new Error('An unknown error occurred.');
-}
 
 const apiHandler = async (url: string, method: string, data?: unknown) => {
     const key = makeKey(method, url, data);
@@ -74,7 +61,7 @@ const apiHandler = async (url: string, method: string, data?: unknown) => {
 
         if (!response.ok) {
             if (response.status === 403 || response.status === 401) {
-                window.location.href = `${import.meta.env.VITE_API_BASE_URL}/login`;
+                navigate('/login', {replace: true});
             }
 
             errorMessage.value = `Request failed with status: ${response.status}`;
