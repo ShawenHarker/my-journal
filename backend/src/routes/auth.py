@@ -1,6 +1,8 @@
 from src.app.Auth import AuthUser
+from src.app.Responses import Responses
 from tina4_python.core.router import post, middleware
 from src.middleware.ApiKeyMiddleware import ApiKeyMiddleware
+from src.middleware.AuthUserMiddleware import AuthUserMiddleware
 
 @middleware(ApiKeyMiddleware)
 @post('/api/auth/register')
@@ -34,3 +36,16 @@ async def forget_password(request, response):
     :return:
     """
     return await AuthUser.forget_password(request, response)
+
+@middleware(AuthUserMiddleware)
+@post("/api/auth/logout")
+async def logout(request, response):
+    """
+    Logout a user
+    :param request:
+    :param response:
+    :return:
+    """
+    response.cookie("access-token", "", path="/", max_age=0, http_only=True, secure=False, same_site="Lax")
+    
+    return Responses.success_message(response, "Logged out successfully", {})
