@@ -1,5 +1,5 @@
 import { signal, Signal } from 'tina4js';
-import { errorMessage } from '../state/global-state';
+import {errorMessage, isPasswordMatch} from '../state/global-state';
 
 export function handleError(err: unknown): never {
     if (err instanceof Error) {
@@ -14,6 +14,10 @@ export function handleError(err: unknown): never {
     errorMessage.value = 'An unknown error occurred.';
     throw new Error('An unknown error occurred.');
 }
+
+export const handlePasswordMatch = (currentPassword: string, currentConfirm: string) => {
+    isPasswordMatch.value = currentPassword === currentConfirm;
+};
 
 function persist<T>(s: Signal<T>, key: string) {
     s._subscribe(() => {

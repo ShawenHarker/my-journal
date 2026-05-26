@@ -16,3 +16,4 @@ export const user = persistentSignal<UserProps>({
 }, 'user');
 export const errorMessage = signal<string>('', 'errorMessage');
 export const successMessage = signal<string>('', 'successMessage');
+export const isPasswordMatch = signal<boolean>(false, 'isPasswordMatch');

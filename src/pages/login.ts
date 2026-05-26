@@ -34,7 +34,7 @@ export const Login = () => {
     <div>
         <show-toast-message></show-toast-message>
         <div class="d-flex justify-content-center align-items-center" style="height: 97vh;">
-            <form id="login-form" style="width: 100%; max-width: 400px;">
+            <form id="login-form" @submit=${handleLoginSubmit} style="width: 100%; max-width: 400px;">
                 <h1 class="text-primary text-center">Journal With Me</h1>
                 <h4 class="text-muted mb-3 text-center">Login to your account</h4>
                 <p>
@@ -66,7 +66,7 @@ export const Login = () => {
                        @input=${(e: Event) => loginPassword.value = (e.target as HTMLInputElement).value}>
                 <a href="/forgot-password" class="d-flex justify-content-end mb-3">Forget Password?</a>
                 <div class="d-flex justify-content-end">
-                    <button type="button"
+                    <button type="submit"
                             class="btn btn-primary"
                             style="${() => {
                                 const isDisabled = loginEmail.value === '' || loginPassword.value === '';
@@ -77,7 +77,6 @@ export const Login = () => {
                             `;
                             }}"
                             ?disabled=${() => loginEmail.value === '' || loginPassword.value === ''}
-                            @click=${(e: Event) => handleLoginSubmit(e)}
                     >
                         Submit
                     </button>

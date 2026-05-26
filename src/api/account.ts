@@ -28,6 +28,17 @@ interface RegistrationCredentialsProps {
     password: string;
 }
 
+interface ForgetPasswordProps {
+    email: string;
+    password: string;
+}
+
+interface ResponseForgetPasswordProps {
+    status: string;
+    notification: string;
+    info: {}
+}
+
 export const login = async (credentials: LoginCredentialsProps): Promise<string> => {
     try {
         const response = await apiHandler('api/auth/login', 'POST', credentials) as ResponseLoginProps;
@@ -80,6 +91,23 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
         errorMessage.value = response.notification;
         return 'Error';
     } catch (e: unknown) {
+        handleError(e);
+        return 'Error';
+    }
+}
+
+export const forgetPassword = async (credentials: ForgetPasswordProps): Promise<string> => {
+    try {
+        const response = await apiHandler('api/auth/forget-password', 'POST', credentials) as ResponseForgetPasswordProps;
+
+        if (response.status === 'Successful') {
+            successMessage.value = response.notification;
+            return 'Successful';
+        }
+
+        errorMessage.value = response.notification;
+        return 'Error'
+    } catch (e) {
         handleError(e);
         return 'Error';
     }
