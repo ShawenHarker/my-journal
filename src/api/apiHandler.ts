@@ -10,15 +10,6 @@ const THROTTLE_MS = 200;
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 const getAuthHeaders = () => {
-    const accessToken = localStorage.getItem('accessToken');
-
-    if (accessToken) {
-        return {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-        };
-    }
-
     return {
         'Authorization': `Bearer ${import.meta.env.VITE_API_KEY}`,
         'Content-Type': 'application/json',
