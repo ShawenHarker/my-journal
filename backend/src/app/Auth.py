@@ -13,13 +13,12 @@ class AuthUser:
         :param response:
         :return:
         """
-        request.body["email"] = request.body["email"].lower()
-
         try:
+            request.body["email"] = request.body["email"].lower()
             email_address_users = User().select("SELECT * FROM users WHERE email = ?", [request.body["email"]])
 
             if email_address_users:
-                return Responses.error_message(response, "Email already exists")
+                return Responses.error_message(response, "User already exists")
         except Exception as e:
             Log.error(f"{type(e).__name__}: {str(e)}")
 
@@ -62,13 +61,9 @@ class AuthUser:
         :param response:
         :return:
         """
-        request.body["email"] = request.body["email"].lower()
-
         try:
-            users = User().select(
-                "SELECT * FROM users WHERE email = ?",
-                [request.body["email"]]
-            )
+            request.body["email"] = request.body["email"].lower()
+            users = User().select("SELECT * FROM users WHERE email = ?", [request.body["email"]])
 
             if not users:
                 return Responses.error_message(response, "User not found")
@@ -92,6 +87,34 @@ class AuthUser:
             response.cookie("access-token", access_token, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
 
             return Responses.success_message(response, "User logged in successfully", res)
+        except Exception as e:
+            Log.error(f"{type(e).__name__}: {str(e)}")
+
+            return Responses.error_message(response, f"{type(e).__name__}: {str(e)}")
+
+    @staticmethod
+    async def forget_password(request, response):
+        """
+        Forget password
+        :param request:
+        :param response:
+        :return:
+        """
+        try:
+            request.body["email"] = request.body["email"].lower()
+            users = User().select("SELECT * FROM users WHERE email = ?", [request.body["email"]])
+
+            if not users:
+                return Responses.error_message(response, "User not found")
+
+            user = users[0]
+
+            user_password = Auth.hash_password(request.body["password"])
+
+            user.password = user_password
+            user.save()
+
+            return Responses.success_message(response, "Password reset successfully")
         except Exception as e:
             Log.error(f"{type(e).__name__}: {str(e)}")
 

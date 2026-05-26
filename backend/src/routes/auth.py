@@ -23,3 +23,14 @@ async def login_user(request, response):
     :return:
     """
     return await AuthUser.login_user(request, response)
+
+@middleware(ApiKeyMiddleware)
+@post('/api/auth/forget-password')
+async def forget_password(request, response):
+    """
+    Forget password
+    :param request:
+    :param response:
+    :return:
+    """
+    return await AuthUser.forget_password(request, response)
