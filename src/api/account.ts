@@ -2,7 +2,6 @@ import apiHandler from './apiHandler';
 import { handleError } from "../helpers/helpers";
 import { errorMessage, user, successMessage, isValidUser } from '../state/global-state';
 import { navigate } from "tina4js";
-import {clearPersistedKeys} from "../helpers/persistentSignal";
 
 interface LoginCredentialsProps {
     email: string;
@@ -13,7 +12,6 @@ interface ResponseLoginProps {
     status: string;
     notification: string;
     info: {
-        is_session_valid: boolean;
         user: {
             first_name: string;
             last_name: string;
@@ -52,11 +50,6 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
     try {
         const response = await apiHandler('api/auth/login', 'POST', credentials) as ResponseLoginProps;
 
-        if (!response.info.is_session_valid) {
-            errorMessage.value = response.notification
-            return response.status;
-        }
-
         if (response.status === 'Successful') {
             successMessage.value = response.notification;
 
@@ -66,8 +59,6 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
                 currentStreak: response.info.user.current_streak,
                 sevenDayStreak: response.info.user.seven_day_streak
             };
-
-            isValidUser.value = response.info.is_session_valid;
 
             return response.status;
         }
@@ -92,11 +83,6 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
 
         const response = await apiHandler('api/auth/register', 'POST', data) as ResponseLoginProps;
 
-        if (!response.info.is_session_valid) {
-            errorMessage.value = response.notification
-            return response.status;
-        }
-
         if (response.status === 'Successful') {
             successMessage.value = response.notification;
 
@@ -106,8 +92,6 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
                 currentStreak: response.info.user.current_streak,
                 sevenDayStreak: response.info.user.seven_day_streak
             };
-
-            isValidUser.value = response.info.is_session_valid;
 
             return response.status;
         }
@@ -139,8 +123,6 @@ export const forgetPassword = async (credentials: ForgetPasswordProps): Promise<
 
 export const logout = async () => {
     try {
-        clearPersistedKeys(['isValidUser', 'user']);
-
         isValidUser.value = false;
         user.value = {
             firstName: '',

@@ -7,7 +7,6 @@ import { MyJournal } from '../pages/my-journal';
 import { ForgotPassword } from '../pages/forgot-password';
 import { RegisterNewUser } from '../pages/register-new-user';
 import { isValidUser } from '../state/global-state';
-import { logout } from '../api/account';
 
 const layout = (content: any, activePath: string) => html`
     <horizontal-tabs activePath="${activePath}"></horizontal-tabs>
@@ -15,20 +14,10 @@ const layout = (content: any, activePath: string) => html`
     ${content}
 `;
 
-const isLoggedIn = computed(() => {
-    if (!isValidUser.value) return false;
-    return isValidUser.value;
-});
-
-const checkSession = async () => {
-    if (!isLoggedIn.value) {
-        await logout();
-    }
-};
+const isLoggedIn = computed(() => isValidUser.value === true);
 
 route('/', () => {
-    setTimeout(async () => {
-        await checkSession();
+    setTimeout(() => {
         navigate(isLoggedIn.value ? '/new-entry' : '/login', { replace: true });
     }, 0);
     return html``;
