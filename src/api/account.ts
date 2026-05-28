@@ -1,6 +1,8 @@
 import apiHandler from './apiHandler';
-import {handleError} from "../helpers/helpers";
-import { errorMessage, user, successMessage } from '../state/global-state';
+import { handleError } from "../helpers/helpers";
+import { errorMessage, user, successMessage, isValidUser } from '../state/global-state';
+import { navigate } from "tina4js";
+import {clearPersistedKeys} from "../helpers/persistentSignal";
 
 interface LoginCredentialsProps {
     email: string;
@@ -11,7 +13,7 @@ interface ResponseLoginProps {
     status: string;
     notification: string;
     info: {
-        accessToken: string;
+        is_session_valid: boolean;
         user: {
             first_name: string;
             last_name: string;
@@ -39,9 +41,20 @@ interface ResponseForgetPasswordProps {
     info: {}
 }
 
+interface LogoutResponseProps {
+    status: string;
+    notification: string;
+    info: {}
+}
+
 export const login = async (credentials: LoginCredentialsProps): Promise<string> => {
     try {
         const response = await apiHandler('api/auth/login', 'POST', credentials) as ResponseLoginProps;
+
+        if (!response.info.is_session_valid) {
+            errorMessage.value = response.notification
+            return response.status;
+        }
 
         if (response.status === 'Successful') {
             successMessage.value = response.notification;
@@ -53,11 +66,13 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
                 sevenDayStreak: response.info.user.seven_day_streak
             };
 
-            return 'Successful';
+            isValidUser.value = response.info.is_session_valid;
+
+            return response.status;
         }
 
         errorMessage.value = response.notification;
-        return 'Error';
+        return response.status;
     } catch (e: unknown) {
         handleError(e);
         return 'Error';
@@ -75,6 +90,11 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
 
         const response = await apiHandler('api/auth/register', 'POST', data) as ResponseLoginProps;
 
+        if (!response.info.is_session_valid) {
+            errorMessage.value = response.notification
+            return response.status;
+        }
+
         if (response.status === 'Successful') {
             successMessage.value = response.notification;
 
@@ -85,11 +105,13 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
                 sevenDayStreak: response.info.user.seven_day_streak
             };
 
-            return 'Successful';
+            isValidUser.value = response.info.is_session_valid;
+
+            return response.status;
         }
 
         errorMessage.value = response.notification;
-        return 'Error';
+        return response.status;
     } catch (e: unknown) {
         handleError(e);
         return 'Error';
@@ -102,11 +124,34 @@ export const forgetPassword = async (credentials: ForgetPasswordProps): Promise<
 
         if (response.status === 'Successful') {
             successMessage.value = response.notification;
-            return 'Successful';
+            return response.status;
         }
 
         errorMessage.value = response.notification;
-        return 'Error'
+        return response.status;
+    } catch (e) {
+        handleError(e);
+        return 'Error';
+    }
+}
+
+export const logout = async () => {
+    try {
+        clearPersistedKeys(['isValidUser', 'user']);
+
+        isValidUser.value = false;
+        user.value = {
+            firstName: '',
+            lastName: '',
+            currentStreak: 0,
+            sevenDayStreak: 0
+        };
+
+        const response = await apiHandler('api/auth/logout', 'POST') as LogoutResponseProps;
+        successMessage.value = response.notification;
+        navigate('/login', { replace: true });
+
+        return response.status;
     } catch (e) {
         handleError(e);
         return 'Error';

@@ -14,6 +14,7 @@ class AuthUser:
         :return:
         """
         try:
+            is_session_valid = False
             request.body["email"] = request.body["email"].lower()
             email_address_users = User().select("SELECT * FROM users WHERE email = ?", [request.body["email"]])
 
@@ -38,9 +39,14 @@ class AuthUser:
 
             return Responses.error_message(response, f"{type(e).__name__}: {str(e)}")
 
-        access_token = Auth.get_token({"id": user.id})
+
+        access_token = Auth.get_token({"id": user.id}, 240)
+        response.cookie("access-token", access_token, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
+
+        is_session_valid = True
 
         res = {
+            "is_session_valid": is_session_valid,
             "user": {
                 "first_name": user.first_name,
                 "last_name": user.last_name,
@@ -48,8 +54,6 @@ class AuthUser:
                 "seven_day_streak": user.seven_day_streak
             },
         }
-
-        response.cookie("access-token", access_token, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
 
         return Responses.success_message(response, "User registered successfully", res)
 
@@ -62,6 +66,7 @@ class AuthUser:
         :return:
         """
         try:
+            is_session_valid = False
             request.body["email"] = request.body["email"].lower()
             users = User().select("SELECT * FROM users WHERE email = ?", [request.body["email"]])
 
@@ -73,9 +78,13 @@ class AuthUser:
             if not Auth.check_password(request.body["password"], user.password):
                 return Responses.error_message(response, "Invalid email or password")
 
-            access_token = Auth.get_token({"id": user.id})
+            access_token = Auth.get_token({"id": user.id}, 60)
+            response.cookie("access-token", access_token, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
+
+            is_session_valid = True
 
             res = {
+                "is_session_valid": is_session_valid,
                 "user": {
                     "first_name": user.first_name,
                     "last_name": user.last_name,
@@ -83,8 +92,6 @@ class AuthUser:
                     "seven_day_streak": user.seven_day_streak
                 },
             }
-
-            response.cookie("access-token", access_token, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
 
             return Responses.success_message(response, "User logged in successfully", res)
         except Exception as e:

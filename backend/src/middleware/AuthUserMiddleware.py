@@ -27,6 +27,7 @@ class AuthUserMiddleware(Middleware):
                 return Responses.unauthorized_message(response)
 
             request.params["user"] = users[0]
+            request.params["is_session_valid"] = True
 
             return next(request, response)
         except Exception as e:

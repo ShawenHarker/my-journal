@@ -18,7 +18,9 @@ class Responses:
         res = {
             'status': 'Error',
             'notification': notification,
-            'info': {}
+            'info': {
+                'is_session_valid': False
+            }
         }
 
         Response.http_code = 403
@@ -35,7 +37,9 @@ class Responses:
         res = {
             'status': 'Unauthorized',
             'notification': 'Unauthorized: You are not unauthorized to perform this action.',
-            'info': {}
+            'info': {
+               'is_session_valid': False
+            }
         }
 
         Response.http_code = 401

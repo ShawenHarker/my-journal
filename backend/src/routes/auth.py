@@ -38,7 +38,7 @@ async def forget_password(request, response):
     return await AuthUser.forget_password(request, response)
 
 @middleware(AuthUserMiddleware)
-@post("/api/auth/logout")
+@post('/api/auth/logout')
 async def logout(request, response):
     """
     Logout a user
