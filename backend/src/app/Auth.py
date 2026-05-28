@@ -32,6 +32,7 @@ class AuthUser:
             user.first_name = request.body["first_name"]
             user.last_name = request.body["last_name"]
             user.email = request.body["email"]
+            user.mobile = request.body["mobile"]
             user.password = request.body["password"]
             user.save()
         except Exception as e:

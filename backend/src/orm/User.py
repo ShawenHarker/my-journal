@@ -7,6 +7,7 @@ class User(ORM):
     first_name = StringField()
     last_name = StringField()
     email = StringField()
+    mobile = IntegerField(default=None)
     password = StringField()
     current_streak = IntegerField(default=0)
     seven_day_streak = IntegerField(default=0)

@@ -8,6 +8,7 @@ export const RegisterNewUser = () => {
     const firstName = signal<string>('', 'registerFirstName');
     const lastName = signal<string>('', 'registerLastName');
     const email = signal<string>('', 'registerEmail');
+    const mobile = signal<number | null>(null, 'registerMobile');
     const password = signal<string>('', 'registerPassword');
     const confirmPassword = signal<string>('', 'registerConfirmPassword');
 
@@ -23,6 +24,7 @@ export const RegisterNewUser = () => {
             firstName: firstName.value,
             lastName: lastName.value,
             email: email.value,
+            mobile: mobile.value,
             password: password.value
         }
 
@@ -89,6 +91,21 @@ export const RegisterNewUser = () => {
                             "
                            type="email"
                            @input=${(e: Event) => email.value = (e.target as HTMLInputElement).value}>
+                    <input placeholder="Mobile Number"
+                           style="
+                                width: 100%;
+                                max-width: 400px;
+                                background-color: transparent;
+                                border: 1px solid var(--primary-color);
+                                border-radius: var(--radius-md);
+                                margin-bottom: 1rem;
+                                padding: 4px 8px;
+                            "
+                           type="number"
+                           @input=${(e: Event) => {
+                               const val = (e.target as HTMLInputElement).value;
+                               mobile.value = val === '' ? null : Number(val);
+                           }}>
                     <input placeholder="Password"
                            style="
                                 width: 100%;

@@ -7,6 +7,7 @@ create table users
     first_name          text        not null,
     last_name           text        not null,
     email               text        not null unique,
+    mobile              integer     unique default null,
     password            text        not null,
     current_streak      integer     not null default 0,
     seven_day_streak    integer     not null default 0,

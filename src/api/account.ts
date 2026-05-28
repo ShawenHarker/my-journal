@@ -26,6 +26,7 @@ interface ResponseLoginProps {
 interface RegistrationCredentialsProps {
     firstName: string;
     lastName: string;
+    mobile: number | null;
     email: string;
     password: string;
 }
@@ -85,6 +86,7 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
             'first_name': credentials.firstName,
             'last_name': credentials.lastName,
             'email': credentials.email,
+            'mobile': credentials.mobile,
             'password': credentials.password
         }
 
