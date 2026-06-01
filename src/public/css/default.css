@@ -327,3 +327,83 @@ a:hover {
 .flame {
   color: var(--color-danger);
 }
+
+.toolbar-btn {
+  cursor:           pointer;
+  border:           none;
+  padding:          4px 7px;
+  border-radius:    var(--radius-sm);
+  background-color: transparent;
+  color:            var(--text-primary);
+  font-size:        15px;
+  line-height:      1;
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  gap:              4px;
+  transition:       background-color 0.12s ease, color 0.12s ease;
+  white-space:      nowrap;
+}
+
+.toolbar-btn:hover {
+  background-color: var(--primary-bg);
+  color:            var(--primary-color);
+}
+
+.toolbar-btn.is-active {
+  background-color: var(--primary-color);
+  color:            #fff;
+}
+
+.toolbar-select {
+  font-size:     12px;
+  padding:       3px 4px;
+  border:        1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background:    transparent;
+  color:         var(--text-primary);
+  cursor:        pointer;
+  outline:       none;
+}
+
+.toolbar-select:focus {
+  border-color: var(--primary-lighter);
+}
+
+.editor-resize-wrapper {
+  resize:           vertical;
+  overflow:         auto;
+  min-height:       300px;
+  border:           1px solid var(--primary-color);
+  border-radius:    0 0 var(--radius-md) var(--radius-md);
+  padding:          12px;
+  background-color: transparent;
+}
+
+.journal-editor {
+  outline:     none;
+  min-height:  276px;
+  line-height: 1.75;
+  font-size:   15px;
+  color:       var(--text-primary);
+  word-break:  break-word;
+}
+
+.journal-editor p          {margin-bottom: 0.6rem; }
+.journal-editor h1         { font-size: 1.6rem; font-weight: 600; margin-bottom: 0.5rem; }
+.journal-editor h2         { font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem; }
+.journal-editor h3         { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.journal-editor ul,
+.journal-editor ol         { padding-left: 1.5rem; margin-bottom: 0.6rem; }
+.journal-editor code       { background: var(--surface-secondary); padding: 1px 5px; border-radius: 3px; font-size: 13px; font-family: var(--font-mono); }
+.journal-editor a          { color: var(--primary-color); text-decoration: underline; }
+.journal-editor img        { max-width: 100%; border-radius: var(--radius-md); margin: 0.5rem 0; display: block; }
+.journal-editor blockquote { border-left: 3px solid var(--primary-lighter); padding-left: 1rem; color: var(--text-secondary); margin: 0.75rem 0; }
+
+.journal-editor p.is-editor-empty:first-child::before {
+  content:        attr(data-placeholder);
+  float:          left;
+  color:          var(--text-muted);
+  pointer-events: none;
+  height:         0;
+}

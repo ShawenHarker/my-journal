@@ -12,6 +12,18 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@tiptap/core": "^3.23.6",
+    "@tiptap/extension-code": "^3.23.6",
+    "@tiptap/extension-history": "^3.23.6",
+    "@tiptap/extension-image": "^3.23.6",
+    "@tiptap/extension-link": "^3.23.6",
+    "@tiptap/extension-placeholder": "^3.23.6",
+    "@tiptap/extension-strike": "^3.23.6",
+    "@tiptap/extension-subscript": "^3.23.6",
+    "@tiptap/extension-superscript": "^3.23.6",
+    "@tiptap/extension-text-align": "^3.23.6",
+    "@tiptap/extension-underline": "^3.23.6",
+    "@tiptap/starter-kit": "^3.23.6",
     "bootstrap-icons": "^1.13.1",
     "tina4js": "^1.2.4"
   },

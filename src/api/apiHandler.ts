@@ -66,7 +66,6 @@ const apiHandler = async (url: string, method: string, data?: unknown) => {
         const response = await fetch(`${baseURL}${url}`, {
             method,
             headers,
-            credentials: 'include',
             body: data ? JSON.stringify(data) : undefined,
             signal: controller.signal
         });
