@@ -10,8 +10,8 @@ create table users
     mobile              integer     unique default null,
     password            text        not null,
     current_streak      integer     not null default 0,
-    seven_day_streak    integer     not null default 0,
-    created_at          timestamp   default CURRENT_TIMESTAMP
+    created_at          timestamp   default CURRENT_TIMESTAMP,
+    updated_at          timestamp   default CURRENT_TIMESTAMP
 );
 
 
@@ -55,14 +55,17 @@ create table entries
     mood_id             integer     not null REFERENCES moods (id),
     title               text        not null,
     entry               text        not null,
+    day                 text        not null,
     draft               boolean     default false,
-    created_at          timestamp   default CURRENT_TIMESTAMP
+    created_at          timestamp   default CURRENT_TIMESTAMP,
+    updated_at          timestamp   default CURRENT_TIMESTAMP
 );
 
 create table entry_tags
 (
     id                  integer     primary key autoincrement,
     entry_id            integer     not null REFERENCES entries(id),
-    tag_id              integer     not null REFERENCES tag(id),
-    created_at          timestamp   default CURRENT_TIMESTAMP
+    tag_id              integer     not null REFERENCES tags(id),
+    created_at          timestamp   default CURRENT_TIMESTAMP,
+    updated_at          timestamp   default CURRENT_TIMESTAMP
 );

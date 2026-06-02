@@ -10,5 +10,5 @@ class User(ORM):
     mobile = IntegerField(default=None)
     password = StringField()
     current_streak = IntegerField(default=0)
-    seven_day_streak = IntegerField(default=0)
     created_at = DateTimeField()
+    updated_at = DateTimeField()
