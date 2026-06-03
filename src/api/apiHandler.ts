@@ -11,8 +11,8 @@ const THROTTLE_MS = 200;
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 const getAuthHeaders = () => ({
-    'Authorization': `Bearer ${import.meta.env.VITE_API_KEY}`,
-    'Content-Type': 'application/json',
+    'authorization': `Bearer ${import.meta.env.VITE_API_KEY}`,
+    'content-type': 'application/json',
 });
 
 const pendingRequests: Map<string, AbortController> = new Map();
@@ -26,8 +26,7 @@ const clearAuthState = () => {
     user.value = {
         firstName: '',
         lastName: '',
-        currentStreak: 0,
-        sevenDayStreak: 0
+        currentStreak: 0
     };
 };
 
@@ -67,7 +66,8 @@ const apiHandler = async (url: string, method: string, data?: unknown) => {
             method,
             headers,
             body: data ? JSON.stringify(data) : undefined,
-            signal: controller.signal
+            signal: controller.signal,
+            credentials: 'include',
         });
 
         if (!response.ok) {

@@ -49,6 +49,11 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
     try {
         const response = await apiHandler('api/auth/login', 'POST', credentials) as ResponseLoginProps;
 
+        if (!response) {
+            errorMessage.value = 'There is an issue and our team will resolve it shortly.';
+            return 'Error';
+        }
+
         if (response.status === 'Successful') {
             successMessage.value = response.notification;
 
@@ -81,6 +86,11 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
 
         const response = await apiHandler('api/auth/register', 'POST', data) as ResponseLoginProps;
 
+        if (!response) {
+            errorMessage.value = 'There is an issue and our team will resolve it shortly.';
+            return 'Error';
+        }
+
         if (response.status === 'Successful') {
             successMessage.value = response.notification;
 
@@ -105,6 +115,11 @@ export const forgetPassword = async (credentials: ForgetPasswordProps): Promise<
     try {
         const response = await apiHandler('api/auth/forget-password', 'POST', credentials) as ResponseForgetPasswordProps;
 
+        if (!response) {
+            errorMessage.value = 'There is an issue and our team will resolve it shortly.';
+            return 'Error';
+        }
+
         if (response.status === 'Successful') {
             successMessage.value = response.notification;
             return response.status;
@@ -126,6 +141,7 @@ export const logout = async () => {
             lastName: '',
             currentStreak: 0,
         };
+        localStorage.setItem('draft', '');
 
         const response = await apiHandler('api/auth/logout', 'POST') as LogoutResponseProps;
         successMessage.value = response.notification;
