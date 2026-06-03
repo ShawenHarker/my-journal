@@ -7,15 +7,18 @@ class ApiKeyMiddleware(Middleware):
     """
     This middleware checks if the API key is valid.
     """
-    def process(self, request, response, next):
+    @staticmethod
+    def before_api_key(request, response):
         try:
-            api_key = request.headers.get("X-API-Key") or request.headers.get("x-api-key")
+            api_key = request.headers.get("authorization") or request.headers.get("authorization")
 
-            if api_key != get_env("TINA4_API_KEY"):
-                return Responses.unauthorized_message(response)
+            bearer = f"Bearer {get_env("TINA4_API_KEY")}"
 
-            return next(request, response)
+            if api_key != bearer:
+                return request, Responses.unauthorized_message(response)
+
+            return request, response
         except Exception as e:
             Log.error(f"{type(e).__name__}: {str(e)}")
 
-            return Responses.error_message(response, f"{type(e).__name__}: {str(e)}")
+            return request, Responses.error_message(response, f"{type(e).__name__}: {str(e)}")
