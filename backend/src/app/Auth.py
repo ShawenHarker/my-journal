@@ -45,7 +45,7 @@ class AuthUser:
 
 
         access_token = Auth.get_token({"id": user.id}, 240)
-        response.cookie("access-token", access_token, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
+        response.cookie("access-token", access_token, path="/", http_only=True, secure=False, same_site="Lax")
 
         is_session_valid = True
 
@@ -82,7 +82,7 @@ class AuthUser:
                 return Responses.error_message(response, "Invalid email or password")
 
             access_token = Auth.get_token({"id": user.id}, 60)
-            response.cookie("access-token", access_token, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
+            response.cookie("access-token", access_token, path="/", http_only=True, secure=False, same_site="Lax")
 
             is_session_valid = True
 
