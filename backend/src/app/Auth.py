@@ -34,6 +34,9 @@ class AuthUser:
             user.email = request.body["email"]
             user.mobile = request.body["mobile"]
             user.password = encrypted_password
+            user.encrypted_dek = request.body["encrypted_dek"]
+            user.dek_iv = request.body["dek_iv"]
+            user.recovery_key_hash = request.body["recovery_key_hash"]
             user.save()
         except Exception as e:
             Log.error(f"{type(e).__name__}: {str(e)}")
@@ -88,7 +91,9 @@ class AuthUser:
                 "user": {
                     "first_name": user.first_name,
                     "last_name": user.last_name,
-                    "current_streak": user.current_streak
+                    "current_streak": user.current_streak,
+                    "encrypted_dek": user.encrypted_dek,
+                    "dek_iv": user.dek_iv,
                 },
             }
 

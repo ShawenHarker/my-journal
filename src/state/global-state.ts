@@ -13,6 +13,7 @@ export const user = persistentSignal<UserProps>({
     lastName: '',
     currentStreak: 0,
 }, 'user', 'session');
+export const recoveryKey = signal<string | null>(null, 'recoveryKey');
 export const errorMessage = signal<string>('', 'errorMessage');
 export const successMessage = signal<string>('', 'successMessage');
 export const isPasswordMatch = signal<boolean>(false, 'isPasswordMatch');

@@ -36,19 +36,14 @@ class NewEntries:
             entry.save()
 
             if request.body.get("tag_ids") and len(list(request.body.get("tag_ids"))) > 0:
-                tag = EntryTag()
                 for tag_id in request.body.get("tag_ids"):
+                    tag = EntryTag()
                     tag.entry_id = entry.id
                     tag.tag_id = tag_id
-
-                tag.save()
+                    tag.save()
 
             res = {
                 "is_session_valid": True,
-                "title": "",
-                "entry": "",
-                "mood_id": 0,
-                "tag_ids": [],
             }
 
             if request.body.get("draft"):

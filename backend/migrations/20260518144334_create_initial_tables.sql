@@ -9,6 +9,9 @@ create table users
     email               text        not null unique,
     mobile              integer     unique default null,
     password            text        not null,
+    encrypted_dek       text        not null,
+    dek_iv              text        not null,
+    recovery_key_hash   text        not null,
     current_streak      integer     not null default 0,
     created_at          timestamp   default CURRENT_TIMESTAMP,
     updated_at          timestamp   default CURRENT_TIMESTAMP

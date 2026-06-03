@@ -13,22 +13,33 @@ import '@/components/new-entry-text-area';
 import '@/components/submit-button';
 import { user } from '../state/global-state';
 import { newEntry } from "../api/entry";
+import { encryptText } from '../helpers/crypto';
 
 export const NewEntry = () => {
     const { firstName, lastName, currentStreak } = user.value;
 
     const handleSubmit = async (e: Event, isDraft: boolean = false) => {
         e.preventDefault();
+        e.stopPropagation();
+
+        if (!isDraft && (journaledText.value === '' || selectedMood.value === 0)) return;
+        if (journaledText.value === '' && selectedMood.value === 0 && journalTitle.value === '') return;
+
+        const encryptedEntry = await encryptText(journaledText.value);
 
         const payload = {
             mood: selectedMood.value,
             tags: selectedTags.value,
             title: journalTitle.value,
-            entry: journaledText.value,
+            entry: encryptedEntry,
             draft: isDraft,
         };
 
-        localStorage.setItem('draft', JSON.stringify(payload));
+        if (isDraft) {
+            localStorage.setItem('draft', JSON.stringify(payload));
+        } else {
+            localStorage.removeItem('draft');
+        }
 
         await newEntry(payload);
     };

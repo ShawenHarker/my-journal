@@ -43,19 +43,17 @@ export const newEntry = async (payload: JournalEntry) => {
         if (response.status === 'Successful') {
             successMessage.value = response.notification;
 
-            const { mood_id, tag_ids, title, entry, is_session_valid } = response.info;
-
-            isValidUser.value = is_session_valid;
-            selectedMood.value = mood_id;
-            selectedTags.value = tag_ids;
-            journalTitle.value = title;
-            journaledText.value = entry;
+            isValidUser.value = response.info.is_session_valid;
+            selectedMood.value = 0;
+            selectedTags.value = [];
+            journalTitle.value = '';
+            journaledText.value = '';
 
             if (!payload.draft) {
                 localStorage.setItem('draft', '');
             }
 
-            return;
+            return 'Successful';
         }
 
         errorMessage.value = response.notification;
@@ -68,7 +66,7 @@ export const newEntry = async (payload: JournalEntry) => {
         journalTitle.value = title;
         journaledText.value = entry;
 
-        return;
+        return 'Error';
     } catch (e: unknown) {
         handleError(e);
         return 'Error';
