@@ -4,7 +4,7 @@ class Tag(ORM):
     table_name = 'tags'
 
     id = IntegerField(primary_key=True, auto_increment=True)
-    name = StringField(not_null=True)
-    bg_color = StringField(not_null=True)
-    text_color = StringField(not_null=True)
+    name = StringField(required=True)
+    bg_color = StringField(required=True)
+    text_color = StringField(required=True)
     created_at = DateTimeField()

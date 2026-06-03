@@ -4,11 +4,11 @@ class Entry(ORM):
     table_name = 'entries'
 
     id = IntegerField(primary_key=True, auto_increment=True)
-    user_id = IntegerField(not_null=True)
-    mood_id = IntegerField(not_null=True)
-    title = StringField(not_null=True)
-    entry = StringField(not_null=True)
-    day = StringField(not_null=True)
+    user_id = IntegerField(required=True)
+    mood_id = IntegerField(required=True)
+    title = StringField(required=True)
+    entry = StringField(required=True)
+    day = StringField(required=True)
     draft = BoolField(default=False)
     created_at = DateTimeField()
     updated_at = DateTimeField()
