@@ -34,7 +34,6 @@ export const newEntry = async (payload: JournalEntry) => {
         }
 
         const response = await apiHandler('api/entries/new-entry', 'POST', data) as EntryResponse;
-        console.log("response: ", response);
 
         if (!response) {
             errorMessage.value = 'There is an issue and our team will resolve it shortly.';
@@ -52,7 +51,6 @@ export const newEntry = async (payload: JournalEntry) => {
             journalTitle.value = title;
             journaledText.value = entry;
 
-            console.log('draft: ', payload.draft);
             if (!payload.draft) {
                 localStorage.setItem('draft', '');
             }
