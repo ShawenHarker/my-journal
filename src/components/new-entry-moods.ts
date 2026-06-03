@@ -13,22 +13,22 @@ export class NewEntryMoods extends Tina4Element {
                 const { id, name, emoji, bg_color, text_color } = mood;
 
                 return html`
-                    <button
-                        id="${id}"
-                        style="${() => `
-                            color: ${text_color};
-                            background-color: ${selectedMood.value === id ? bg_color : 'transparent'};
-                            border: 1px solid ${text_color};
-                            border-radius: 15px;
-                            padding: 2px 15px;
-                            cursor: pointer;
-                        `}"
-                        @click=${() => selectedMood.value = id}
-                        @mouseenter=${(e: MouseEvent) => (e.target as HTMLElement).style.backgroundColor = bg_color}
-                        @mouseleave=${(e: MouseEvent) => {
-                            (e.target as HTMLElement).style.backgroundColor = 
-                                    selectedMood.value === id ? bg_color : 'transparent'
-                        }}
+                    <button type="button"
+                            id="${id}"
+                            style="${() => `
+                                color: ${text_color};
+                                background-color: ${selectedMood.value === id ? bg_color : 'transparent'};
+                                border: 1px solid ${text_color};
+                                border-radius: 15px;
+                                padding: 2px 15px;
+                                cursor: pointer;
+                            `}"
+                            @click=${() => selectedMood.value = id}
+                            @mouseenter=${(e: MouseEvent) => (e.target as HTMLElement).style.backgroundColor = bg_color}
+                            @mouseleave=${(e: MouseEvent) => {
+                                (e.target as HTMLElement).style.backgroundColor = 
+                                        selectedMood.value === id ? bg_color : 'transparent'
+                            }}
                     >
                         ${emoji} ${name}
                     </button>

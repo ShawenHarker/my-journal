@@ -17,8 +17,6 @@ class NewEntries:
             current_date = datetime.now()
             day = current_date.strftime("%A")
 
-            user_id = 5
-
             if not request.body.get("mood_id"):
                 return Responses.error_message(response, "A mood is required", is_session_valid=True)
 
@@ -29,17 +27,13 @@ class NewEntries:
                 return Responses.error_message(response, "A journal entry is required", is_session_valid=True)
 
             entry = Entry()
-            # entry.user_id = request.params["user"]["id"]
-            entry.user_id = user_id
+            entry.user_id = request.params["user"]["id"]
             entry.mood_id = request.body.get("mood_id")
             entry.title = request.body.get("title")
             entry.entry = request.body.get("entry")
             entry.day = day
             entry.draft = request.body.get("draft", False)
-            result = entry.save()
-            print("Save result:", result)
-            print("Entry id:", entry.id)
-            print("Entry data:", vars(entry))
+            entry.save()
 
             if request.body.get("tag_ids") and len(list(request.body.get("tag_ids"))) > 0:
                 tag = EntryTag()
@@ -47,11 +41,13 @@ class NewEntries:
                     tag.entry_id = entry.id
                     tag.tag_id = tag_id
 
+                tag.save()
+
             res = {
                 "is_session_valid": True,
                 "title": "",
                 "entry": "",
-                "mood": 0,
+                "mood_id": 0,
                 "tag_ids": [],
             }
 
@@ -60,7 +56,7 @@ class NewEntries:
                     "is_session_valid": True,
                     "title": entry.title,
                     "entry": entry.entry,
-                    "mood": entry.mood_id,
+                    "mood_id": entry.mood_id,
                     "tag_ids": request.body.get("tag_ids"),
                 }
 

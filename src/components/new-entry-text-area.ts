@@ -65,7 +65,7 @@ export class NewEntryTextArea extends Tina4Element {
     }
 
     private getRandomPrompt() {
-        const prompt: { id: string; prompt: string } = PromptsData[Math.floor(Math.random() * PromptsData.length)];
+        const prompt: { id: number; prompt: string } = PromptsData[Math.floor(Math.random() * PromptsData.length)];
         this.randomPrompt = prompt.prompt;
 
         if (this.editor) {

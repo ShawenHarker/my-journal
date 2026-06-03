@@ -1,8 +1,9 @@
 from tina4_python.core.router import post, middleware
+from src.middleware.ApiKeyMiddleware import ApiKeyMiddleware
 from src.middleware.AuthUserMiddleware import AuthUserMiddleware
 from src.app.Entries import NewEntries
 
-@middleware(AuthUserMiddleware)
+@middleware(ApiKeyMiddleware, AuthUserMiddleware)
 @post('/api/entries/new-entry')
 async def new_entry(request, response):
     """

@@ -1,6 +1,6 @@
 import apiHandler from "./apiHandler";
 import { handleError } from "../helpers/helpers";
-import { errorMessage, successMessage } from '../state/global-state';
+import { errorMessage, successMessage, isValidUser } from '../state/global-state';
 import { selectedMood, journalTitle, journaledText, selectedTags } from "../state/new-entry-state";
 
 interface JournalEntry {
@@ -15,28 +15,47 @@ interface EntryResponse {
     status: string;
     notification: string;
     info: {
-        mood: number;
+        is_session_valid: boolean;
+        mood_id: number;
         title: string;
         entry: string;
-        tags: number[];
+        tag_ids: number[];
     }
 }
 
 export const newEntry = async (payload: JournalEntry) => {
     try {
-        const response = await apiHandler('api/entries/new-entry', 'POST', payload) as EntryResponse;
+        const data = {
+            mood_id: payload.mood,
+            title: payload.title,
+            entry: payload.entry,
+            tag_ids: payload.tags,
+            draft: payload.draft,
+        }
+
+        const response = await apiHandler('api/entries/new-entry', 'POST', data) as EntryResponse;
+        console.log("response: ", response);
+
+        if (!response) {
+            errorMessage.value = 'There is an issue and our team will resolve it shortly.';
+            return 'Error';
+        }
 
         if (response.status === 'Successful') {
             successMessage.value = response.notification;
 
-            const { mood, tags, title, entry } = response.info;
+            const { mood_id, tag_ids, title, entry, is_session_valid } = response.info;
 
-            selectedMood.value = mood;
-            selectedTags.value = tags;
+            isValidUser.value = is_session_valid;
+            selectedMood.value = mood_id;
+            selectedTags.value = tag_ids;
             journalTitle.value = title;
             journaledText.value = entry;
 
-            localStorage.setItem('draft', '');
+            console.log('draft: ', payload.draft);
+            if (!payload.draft) {
+                localStorage.setItem('draft', '');
+            }
 
             return;
         }
@@ -44,7 +63,7 @@ export const newEntry = async (payload: JournalEntry) => {
         errorMessage.value = response.notification;
 
         const stored = localStorage.getItem('draft');
-        const { mood, tags, title, entry } = stored ? JSON.parse(stored) : { mood: '', tags: [], title: '', entry: '' };
+        const { mood, tags, title, entry } = stored ? JSON.parse(stored) : { mood: 0, tags: [], title: '', entry: '' };
 
         selectedMood.value = mood;
         selectedTags.value = tags;

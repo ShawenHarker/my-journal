@@ -15,7 +15,7 @@ import { user } from '../state/global-state';
 import { newEntry } from "../api/entry";
 
 export const NewEntry = () => {
-    const { firstName, lastName, currentStreak, sevenDayStreak } = user.value;
+    const { firstName, lastName, currentStreak } = user.value;
 
     const handleSubmit = async (e: Event, isDraft: boolean = false) => {
         e.preventDefault();
@@ -39,7 +39,7 @@ export const NewEntry = () => {
                     firstName=${firstName}
                     lastName=${lastName}
                     current_streak=${currentStreak}
-                    seven_day_streak=${sevenDayStreak}>
+                    seven_day_streak=${currentStreak}>
             </new-entry-header>
             <div class="mt-3"></div>
             <new-entry-moods></new-entry-moods>

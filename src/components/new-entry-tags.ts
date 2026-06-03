@@ -7,26 +7,26 @@ export class NewEntryTags extends Tina4Element {
 
     showTagsModal = signal<boolean>(false, 'showTagsModal');
 
-    private toggleTag(id: string) {
+    private toggleTag(id: number) {
         selectedTags.value = selectedTags.value.includes(id)
             ? selectedTags.value.filter(t => t !== id)
             : [...selectedTags.value, id];
     }
 
-    private renderModalTag(id: string, name: string, bg_color: string, text_color: string) {
+    private renderModalTag(id: number, name: string, bg_color: string, text_color: string) {
         return html`
             <button type="button"
                     style="${() => `
-                    background-color: ${bg_color};
-                    color: ${text_color};
-                    display: ${selectedTags.value.includes(id) ? 'none' : 'inline-block'};
-                    border: 1px solid ${text_color};
-                    border-radius: 15px;
-                    padding: 2px 15px;
-                    cursor: pointer;
-                    margin-right: 5px;
-                    margin-bottom: 5px;
-                `}"
+                        background-color: ${bg_color};
+                        color: ${text_color};
+                        display: ${selectedTags.value.includes(id) ? 'none' : 'inline-block'};
+                        border: 1px solid ${text_color};
+                        border-radius: 15px;
+                        padding: 2px 15px;
+                        cursor: pointer;
+                        margin-right: 5px;
+                        margin-bottom: 5px;
+                    `}"
                     @click=${() => this.toggleTag(id)}
             >
                 ${name}
@@ -34,7 +34,7 @@ export class NewEntryTags extends Tina4Element {
         `;
     }
 
-    private renderSelectedTag(id: string, name: string, bg_color: string, text_color: string) {
+    private renderSelectedTag(id: number, name: string, bg_color: string, text_color: string) {
         return html`
             <button type="button"
                     style="${() => `
