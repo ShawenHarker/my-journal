@@ -25,7 +25,7 @@ class AuthUser:
 
             return Responses.error_message(response, f"{type(e).__name__}: {str(e)}")
 
-        request.body["password"] = Auth.hash_password(request.body["password"])
+        encrypted_password = Auth.hash_password(request.body["password"])
 
         try:
             user = User()
@@ -33,7 +33,7 @@ class AuthUser:
             user.last_name = request.body["last_name"]
             user.email = request.body["email"]
             user.mobile = request.body["mobile"]
-            user.password = request.body["password"]
+            user.password = encrypted_password
             user.save()
         except Exception as e:
             Log.error(f"{type(e).__name__}: {str(e)}")
@@ -51,9 +51,8 @@ class AuthUser:
             "user": {
                 "first_name": user.first_name,
                 "last_name": user.last_name,
-                "current_streak": user.current_streak,
-                "seven_day_streak": user.seven_day_streak
-            },
+                "current_streak": user.current_streak
+            }
         }
 
         return Responses.success_message(response, "User registered successfully", res)
@@ -89,8 +88,7 @@ class AuthUser:
                 "user": {
                     "first_name": user.first_name,
                     "last_name": user.last_name,
-                    "current_streak": user.current_streak,
-                    "seven_day_streak": user.seven_day_streak
+                    "current_streak": user.current_streak
                 },
             }
 

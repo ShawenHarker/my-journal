@@ -16,7 +16,6 @@ interface ResponseLoginProps {
             first_name: string;
             last_name: string;
             current_streak: number;
-            seven_day_streak: number;
         }
     }
 }
@@ -56,8 +55,7 @@ export const login = async (credentials: LoginCredentialsProps): Promise<string>
             user.value = {
                 firstName: response.info.user.first_name,
                 lastName: response.info.user.last_name,
-                currentStreak: response.info.user.current_streak,
-                sevenDayStreak: response.info.user.seven_day_streak
+                currentStreak: response.info.user.current_streak
             };
 
             return response.status;
@@ -89,8 +87,7 @@ export const registerNewUser = async (credentials: RegistrationCredentialsProps 
             user.value = {
                 firstName: response.info.user.first_name,
                 lastName: response.info.user.last_name,
-                currentStreak: response.info.user.current_streak,
-                sevenDayStreak: response.info.user.seven_day_streak
+                currentStreak: response.info.user.current_streak
             };
 
             return response.status;
@@ -128,7 +125,6 @@ export const logout = async () => {
             firstName: '',
             lastName: '',
             currentStreak: 0,
-            sevenDayStreak: 0
         };
 
         const response = await apiHandler('api/auth/logout', 'POST') as LogoutResponseProps;
