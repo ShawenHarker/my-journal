@@ -21,4 +21,4 @@ class ApiKeyMiddleware(Middleware):
         except Exception as e:
             Log.error(f"{type(e).__name__}: {str(e)}")
 
-            return request, Responses.error_message(response, f"{type(e).__name__}: {str(e)}")
+            return request, Responses.error_message(response, f"{type(e).__name__}: {str(e)}", http_code=403)

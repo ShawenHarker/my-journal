@@ -1,72 +1,37 @@
-from tina4_python.core.response import Response
-
 class Responses:
     @staticmethod
-    def error_message(response, notification = ""):
-        """
-        This response handles the error message to the portal.
-        :param notification:
-        :param response:
-        :return:
-        """
+    def error_message(response, notification="", is_session_valid=False, http_code=400):
         if notification == "":
             notification = "An unexpected error occurred"
-
-        if notification == "":
-            notification = notification
-
         res = {
             'status': 'Error',
             'notification': notification,
             'info': {
-                'is_session_valid': False
+                'is_session_valid': is_session_valid
             }
         }
-
-        Response.http_code = 403
-
-        return response(res)
+        return response(res, http_code)
 
     @staticmethod
     def unauthorized_message(response):
-        """
-        This response handles the unauthorized message to the portal.
-        :return:
-        """
-
         res = {
             'status': 'Unauthorized',
-            'notification': 'Unauthorized: You are not unauthorized to perform this action.',
+            'notification': 'Unauthorized: You are not authorized to perform this action.',
             'info': {
-               'is_session_valid': False
+                'is_session_valid': False
             }
         }
-
-        Response.http_code = 401
-
-        return response(res)
+        return response(res, 401)
 
     @staticmethod
-    def success_message(response, notification = "", data = None):
-        """
-        This message handles successful data retrival.
-        :param notification:
-        :param data:
-        :param response:
-        :return:
-        """
+    def success_message(response, notification="", data=None):
         if notification == "":
             notification = "Successful"
-
         if data is None:
             data = {}
-
         res = {
             'status': 'Successful',
             'notification': notification,
             'info': data
         }
-
-        Response.http_code = 200
-
-        return response(res)
+        return response(res, 200)

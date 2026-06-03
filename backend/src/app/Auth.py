@@ -71,12 +71,12 @@ class AuthUser:
             users = User().select("SELECT * FROM users WHERE email = ?", [request.body["email"]])
 
             if not users:
-                return Responses.error_message(response, "User not found")
+                return Responses.error_message(response, "User not found", http_code=403)
 
             user = users[0]
 
             if not Auth.check_password(request.body["password"], user.password):
-                return Responses.error_message(response, "Invalid email or password")
+                return Responses.error_message(response, "Invalid email or password", http_code=403)
 
             access_token = Auth.get_token({"id": user.id}, 60)
             response.cookie("access-token", access_token, path="/", max_age=3600, http_only=True, secure=False, same_site="Lax")
