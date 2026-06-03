@@ -27,7 +27,15 @@ class AuthUserMiddleware(Middleware):
             if not users:
                 return request, Responses.unauthorized_message(response)
 
-            request.params["user"] = users[0]
+            user = {
+                "id": payload["id"],
+                "first_name": users[0].first_name,
+                "last_name": users[0].last_name,
+                "email": users[0].email,
+                "mobile": users[0].mobile,
+            }
+
+            request.params["user"] = user
             request.params["is_session_valid"] = True
 
             return request, response
